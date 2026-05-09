@@ -70,7 +70,8 @@ Output is generated in a versioned folder:
 After building artifacts, publish from CLI with one command:
 
 1. Requirements:
-   - `gh` installed and authenticated (`gh auth login`)
+   - `gh` installed or portable binary at `tools/gh/bin/gh.exe`
+   - authenticated `gh auth login` OR `GH_TOKEN`/`GITHUB_TOKEN` with `repo` scope
    - `origin` remote configured
    - release tag exists (`v<version>`)
 2. Publish:

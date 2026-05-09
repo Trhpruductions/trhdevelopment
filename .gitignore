@@ -5,6 +5,8 @@ npm-debug.log*
 # Build outputs
 dist/
 dist-release-*/
+tools/gh/
+tools/gh.zip
 
 # Electron builder temporary files
 *.blockmap

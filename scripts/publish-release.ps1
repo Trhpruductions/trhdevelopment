@@ -8,6 +8,41 @@ param(
 
 $ErrorActionPreference = "Stop"
 
+function Resolve-GhExecutable {
+  $globalGh = Get-Command gh -ErrorAction SilentlyContinue
+  if ($globalGh) {
+    return $globalGh.Path
+  }
+
+  $portableGh = Join-Path (Resolve-Path (Join-Path $PSScriptRoot "..")) "tools/gh/bin/gh.exe"
+  if (Test-Path $portableGh) {
+    return $portableGh
+  }
+
+  return $null
+}
+
+function Ensure-GhAuth([string]$GhExe) {
+  # Non-interactive token auth path for CI/local automation.
+  $token = if ($env:GH_TOKEN) { $env:GH_TOKEN } elseif ($env:GITHUB_TOKEN) { $env:GITHUB_TOKEN } else { $null }
+  if ($token) {
+    $env:GH_TOKEN = $token
+    return
+  }
+
+  try {
+    & $GhExe auth status 2>$null | Out-Null
+  }
+  catch {
+    # Ignore auth-status command errors and rely on exit code check below.
+  }
+  if ($LASTEXITCODE -eq 0) {
+    return
+  }
+
+  throw "GitHub CLI is not authenticated. Run '$GhExe auth login' or set GH_TOKEN/GITHUB_TOKEN with repo scope."
+}
+
 if ($Version -notmatch "^[0-9]+\.[0-9]+\.[0-9]+([-.][0-9A-Za-z]+)*$") {
   throw "Version must look like 1.0.3 or 1.0.3-beta.1"
 }
@@ -29,10 +64,12 @@ foreach ($requiredFile in @($notesFile, $exeFile, $blockmapFile, $shaFile)) {
   }
 }
 
-$gh = Get-Command gh -ErrorAction SilentlyContinue
-if (-not $gh) {
-  throw "GitHub CLI (gh) is not installed. Install from https://cli.github.com/"
+$ghExe = Resolve-GhExecutable
+if (-not $ghExe) {
+  throw "GitHub CLI not found. Install gh globally or place portable gh at tools/gh/bin/gh.exe"
 }
+
+Ensure-GhAuth -GhExe $ghExe
 
 $remote = git remote get-url origin 2>$null
 if (-not $remote) {
@@ -78,7 +115,7 @@ $cmd = @(
   "--title", "TRH Development Control Panel $tag"
 ) + $flags + $repoArg
 
-& gh @cmd
+& $ghExe @cmd
 if ($LASTEXITCODE -ne 0) {
   throw "gh release create failed."
 }
