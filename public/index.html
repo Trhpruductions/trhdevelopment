@@ -1,0 +1,1732 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TRH Development Bot Control Panel</title>
+    <link rel="icon" type="image/jpeg" href="/assets/trh-logo.jpg" />
+    <link rel="apple-touch-icon" href="/assets/trh-logo.jpg" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- ═══ CHANGELOG MODAL ═══════════════════════════════════════════════ -->
+    <div id="changelogModal" class="hidden" role="dialog" aria-modal="true" aria-label="What's New">
+      <div class="changelog-box">
+        <div class="changelog-header">
+          <div class="changelog-header-left">
+            <span class="changelog-version-badge">v3.0</span>
+            <h2>What's New in TRH Panel</h2>
+          </div>
+          <button id="changelogCloseBtn" aria-label="Close changelog">&#x2715;</button>
+        </div>
+        <div class="changelog-body" id="changelogBody">
+          <div class="changelog-entry">
+            <div class="changelog-entry-header">
+              <span class="changelog-entry-icon">&#x1F680;</span>
+              <span class="changelog-entry-title">Full Visual Overhaul</span>
+              <span class="changelog-entry-tag tag-ui">UI</span>
+            </div>
+            <ul>
+              <li>Complete dark-neon design system with animated gradients and glow effects</li>
+              <li>Animated hero header with rotating announcements and live status chips</li>
+              <li>Smooth screen transitions and card hover animations</li>
+              <li>Premium scrollbars, neon KPI gradients, and glassmorphism cards</li>
+            </ul>
+          </div>
+          <div class="changelog-entry">
+            <div class="changelog-entry-header">
+              <span class="changelog-entry-icon">&#x1F514;</span>
+              <span class="changelog-entry-title">Notification System</span>
+              <span class="changelog-entry-tag tag-new">New</span>
+            </div>
+            <ul>
+              <li>Live notification bell in topbar with unread badge counter</li>
+              <li>Instant alerts for bot status changes, system events, and announcements</li>
+              <li>Notification history with clear-all and dismiss actions</li>
+            </ul>
+          </div>
+          <div class="changelog-entry">
+            <div class="changelog-entry-header">
+              <span class="changelog-entry-icon">&#x1F4CA;</span>
+              <span class="changelog-entry-title">Analytics Dashboard</span>
+              <span class="changelog-entry-tag tag-new">New</span>
+            </div>
+            <ul>
+              <li>Live analytics cards on Home with sparkbar visualizations</li>
+              <li>Bot packages, revenue, delivery rate, and system health at a glance</li>
+              <li>Activity heatmap showing usage patterns across the day</li>
+            </ul>
+          </div>
+          <div class="changelog-entry">
+            <div class="changelog-entry-header">
+              <span class="changelog-entry-icon">&#x1F527;</span>
+              <span class="changelog-entry-title">Orders KPI Fix</span>
+              <span class="changelog-entry-tag tag-fix">Fix</span>
+            </div>
+            <ul>
+              <li>Orders screen now shows live KPI data even before operator login</li>
+              <li>Summary context message added for unauthenticated view</li>
+              <li>Home screen command scope updated to reflect all 9 active screens</li>
+            </ul>
+          </div>
+          <div class="changelog-entry">
+            <div class="changelog-entry-header">
+              <span class="changelog-entry-icon">&#x1F6E1;</span>
+              <span class="changelog-entry-title">Security Hardening</span>
+              <span class="changelog-entry-tag tag-security">Security</span>
+            </div>
+            <ul>
+              <li>Enhanced emergency lockout system with LOCKOUT / SHUTDOWN / NUCLEAR tiers</li>
+              <li>Session purge and blacklist management fully operational</li>
+              <li>Login attempt tracking with IP, device, and browser fingerprinting</li>
+            </ul>
+          </div>
+          <div class="changelog-entry">
+            <div class="changelog-entry-header">
+              <span class="changelog-entry-icon">&#x1F916;</span>
+              <span class="changelog-entry-title">7 Bot Showcase</span>
+              <span class="changelog-entry-tag tag-new">New</span>
+            </div>
+            <ul>
+              <li>TRH Development Team bots displayed on Home with circular animated logos</li>
+              <li>Click-to-navigate from any bot card directly to the relevant panel screen</li>
+              <li>Shadows of Ruin Bot featured in its own dedicated section</li>
+            </ul>
+          </div>
+        </div>
+        <div class="changelog-footer">
+          <label class="changelog-dont-show">
+            <input type="checkbox" id="changelogDontShow" />
+            Don't show on startup
+          </label>
+          <button class="changelog-read-btn" id="changelogMarkReadBtn">Got it &#x2714;</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="loadingGate" class="loading-gate" aria-live="polite">
+      <div class="loading-core">
+        <p class="loading-kicker">TRH SYSTEM</p>
+        <h2>Initializing Control Fabric</h2>
+        <p>Booting telemetry channels, market intelligence, and delivery workflow.</p>
+      </div>
+    </div>
+
+    <main class="shell app-shell">
+      <aside class="command-sidebar">
+        <section class="sidebar-panel brand-panel">
+          <div class="brand-wrap sidebar-brand-wrap">
+            <img class="brand-logo" src="/assets/trh-logo.jpg" alt="TRH Bot Controls logo" />
+            <div>
+              <p class="eyebrow">TRH Development</p>
+              <h1>Control Panel</h1>
+            </div>
+          </div>
+          <p class="sidebar-copy">
+            Unified command surface for bot operations, client delivery, commerce, and owner enforcement.
+          </p>
+          <div class="sidebar-metrics" aria-hidden="true">
+            <div class="sidebar-metric">
+              <span>Mode</span>
+              <strong>Command Fabric</strong>
+            </div>
+            <div class="sidebar-metric">
+              <span>Coverage</span>
+              <strong>Ops + Commerce</strong>
+            </div>
+          </div>
+        </section>
+
+        <section class="sidebar-panel nav-panel">
+          <p class="sidebar-label">Screen Matrix</p>
+          <nav id="screenTabs" class="screen-tabs">
+            <button class="tab-btn active" data-screen="homeScreen">Home</button>
+            <button class="tab-btn" data-screen="businessScreen">Business Suite</button>
+            <button class="tab-btn" data-screen="controlScreen">Control Center</button>
+            <button class="tab-btn" data-screen="marketScreen">Marketplace</button>
+            <button class="tab-btn" data-screen="ordersScreen">Orders</button>
+            <button class="tab-btn" data-screen="myBotsScreen">My Bots</button>
+            <button class="tab-btn" data-screen="buildLibraryScreen">Build Library</button>
+            <button class="tab-btn tab-emergency" data-screen="emergencyScreen">&#x26A0; Emergency</button>
+            <button class="tab-btn tab-users" data-screen="usersScreen">&#x1F6E1; Users</button>
+            <div id="botScreenButtons" class="bot-screen-buttons"></div>
+          </nav>
+          <div class="sidebar-live-strip">
+            <span class="sidebar-live-dot"></span>
+            <span id="sidebarLiveText">System Online</span>
+          </div>
+          <div class="sidebar-changelog-widget" id="sidebarChangelogBtn">
+            <div class="sidebar-changelog-top">
+              <span class="sidebar-changelog-title">What's New</span>
+              <span class="sidebar-changelog-new-badge">v3.0</span>
+            </div>
+            <div class="sidebar-changelog-sub">Visual overhaul + analytics</div>
+          </div>
+          <div class="sidebar-version-tag">TRH Panel &bull; v3.0.0</div>
+        </section>
+
+        <section class="sidebar-panel sidebar-intel">
+          <p class="sidebar-label">Operator Notes</p>
+          <div class="intel-stack">
+            <article class="intel-card">
+              <span>Live Telemetry</span>
+              <strong>Streaming system pulse, orders, and anomaly watch.</strong>
+            </article>
+            <article class="intel-card">
+              <span>Delivery Chain</span>
+              <strong>Track checkout, provisioning, and final client handoff in one workspace.</strong>
+            </article>
+            <article class="intel-card">
+              <span>Owner Safeguards</span>
+              <strong>Payment enforcement, client controls, and economy visibility remain one click away.</strong>
+            </article>
+          </div>
+        </section>
+      </aside>
+
+      <section class="workspace-main">
+        <header class="topbar">
+          <div class="topbar-heading">
+            <p class="eyebrow">TRH Unified Ops</p>
+            <h2>Run the full TRH bot business from one command desk.</h2>
+            <p class="topbar-copy">
+              Monitor operations, manage commerce, push delivery, and control client systems through a single live surface.
+            </p>
+          </div>
+          <div class="topbar-utility">
+            <div id="activityTicker" class="activity-ticker" aria-live="polite">
+              <div id="activityTickerTrack" class="activity-ticker-track">Live Activity: waiting for bot telemetry and operator actions.</div>
+            </div>
+            <div class="topbar-actions">
+              <div class="topbar-search-wrap">
+                <span class="topbar-search-icon">&#x1F50D;</span>
+                <input id="globalSearchInput" type="text" placeholder="Quick search..." aria-label="Quick search" />
+              </div>
+              <label class="theme-control">
+                <span>Theme</span>
+                <select id="themeSelect">
+                  <option value="ops-neon">Ops Neon</option>
+                  <option value="tactical-copper">Tactical Copper</option>
+                  <option value="executive-blue">Executive Blue</option>
+                </select>
+              </label>
+              <button id="themeCycleBtn" class="button ghost tiny">Cycle</button>
+              <button id="refreshDashboardBtn" class="button ghost tiny" title="Refresh dashboard data">&#x21BB; Refresh</button>
+              <span id="authBadge" class="auth-badge">LOCKED</span>
+              <span id="operatorChip" class="operator-chip" hidden>
+                <img id="operatorAvatar" class="operator-avatar" src="" alt="" />
+                <span id="operatorLabel" class="operator-label"></span>
+              </span>
+              <span id="wsStatus" class="ws-status-dot" title="Connecting to live feed…" data-ws-state="closed"></span>
+              <button id="logoutBtn" class="button ghost tiny" hidden>Logout</button>
+              <button id="toggleBotBtn" class="button">Toggle Bot</button>
+              <div class="notif-bell-wrap">
+                <div id="notifBell" title="Notifications" role="button" aria-label="Notifications" tabindex="0">
+                  &#x1F514;
+                  <span id="notifBadge" hidden>0</span>
+                </div>
+                <div id="notifDropdown" hidden>
+                  <div class="notif-header">
+                    <span>Notifications</span>
+                    <button class="notif-clear-btn" id="notifClearBtn">Clear all</button>
+                  </div>
+                  <div id="notifList"><p class="notif-empty">No notifications yet.</p></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <section class="command-deck" aria-hidden="true">
+          <article class="deck-card deck-card-primary">
+            <div class="deck-card-head">
+              <div>
+                <span>Ops Layer</span>
+                <strong>Bot ops &amp; audit</strong>
+              </div>
+              <div class="deck-meter">
+                <svg class="deck-meter-svg" viewBox="0 0 80 80" aria-hidden="true">
+                  <circle class="deck-meter-track" cx="40" cy="40" r="28"></circle>
+                  <circle id="opsDeckRing" class="deck-meter-progress" cx="40" cy="40" r="28"></circle>
+                </svg>
+                <div class="deck-meter-copy">
+                  <strong id="opsDeckMetric">0</strong>
+                  <span id="opsDeckDetail">Bot packages online</span>
+                </div>
+              </div>
+            </div>
+          </article>
+          <article class="deck-card">
+            <div class="deck-card-head">
+              <div>
+                <span>Commerce Layer</span>
+                <strong>Commerce pipeline</strong>
+              </div>
+              <div class="deck-meter">
+                <svg class="deck-meter-svg" viewBox="0 0 80 80" aria-hidden="true">
+                  <circle class="deck-meter-track" cx="40" cy="40" r="28"></circle>
+                  <circle id="commerceDeckRing" class="deck-meter-progress" cx="40" cy="40" r="28"></circle>
+                </svg>
+                <div class="deck-meter-copy">
+                  <strong id="commerceDeckMetric">0</strong>
+                  <span id="commerceDeckDetail">Total orders captured</span>
+                </div>
+              </div>
+            </div>
+          </article>
+          <article class="deck-card deck-card-accent">
+            <div class="deck-card-head">
+              <div>
+                <span>Delivery Layer</span>
+                <strong>Build &amp; delivery</strong>
+              </div>
+              <div class="deck-meter">
+                <svg class="deck-meter-svg" viewBox="0 0 80 80" aria-hidden="true">
+                  <circle class="deck-meter-track" cx="40" cy="40" r="28"></circle>
+                  <circle id="deliveryDeckRing" class="deck-meter-progress" cx="40" cy="40" r="28"></circle>
+                </svg>
+                <div class="deck-meter-copy">
+                  <strong id="deliveryDeckMetric">0</strong>
+                  <span id="deliveryDeckDetail">Modules and delivery depth</span>
+                </div>
+              </div>
+            </div>
+          </article>
+        </section>
+
+        <div class="screen-stack">
+      <section id="homeScreen" class="card screen active">
+
+        <!-- ═══ ANIMATED HERO HEADER ══════════════════════════════════════ -->
+        <div class="trh-hero-header">
+          <div class="trh-hero-inner">
+            <div class="trh-hero-top">
+              <div class="trh-hero-logo-wrap">
+                <img class="trh-hero-logo" src="/assets/trh-logo.jpg" alt="TRH" />
+              </div>
+              <div class="trh-hero-text">
+                <p class="trh-hero-eyebrow">TRH Development — Control Panel v3.0</p>
+                <h2 class="trh-hero-title">The Command Hub is Live</h2>
+                <p class="trh-hero-subtitle">Bot operations, client delivery, owner enforcement, and real-time monitoring.</p>
+              </div>
+              <div class="trh-hero-status-row">
+                <span class="trh-status-chip online" id="heroBotStatus">
+                  <span class="trh-status-dot"></span>
+                  <span id="heroBotStatusLabel">Checking...</span>
+                </span>
+                <span class="trh-status-chip live">
+                  <span class="trh-status-dot"></span>
+                  Live Feed
+                </span>
+                <span class="trh-status-chip uptime">
+                  <span class="trh-status-dot"></span>
+                  <span id="heroUptimeCounter">0s</span>
+                </span>
+              </div>
+            </div>
+
+            <!-- Rotating announcement banner -->
+            <div class="trh-announcement-banner" id="announcementBanner">
+              <span class="ann-icon" id="annIcon">&#x1F680;</span>
+              <span class="ann-text" id="annText">Loading announcements...</span>
+              <div class="ann-dots" id="annDots"></div>
+              <div class="ann-nav-btns">
+                <button class="ann-nav-btn" id="annPrevBtn" aria-label="Previous announcement">&#x2190;</button>
+                <button class="ann-nav-btn" id="annNextBtn" aria-label="Next announcement">&#x2192;</button>
+              </div>
+            </div>
+
+            <!-- What's New quick cards -->
+            <div class="trh-whats-new">
+              <div class="trh-new-card" data-nav-screen="controlScreen">
+                <span class="trh-new-card-icon">&#x26A1;</span>
+                <div class="trh-new-card-text">
+                  <div class="trh-new-card-label">Live Bot Control</div>
+                  <div class="trh-new-card-sub">Real-time ops center</div>
+                </div>
+              </div>
+              <div class="trh-new-card" data-nav-screen="marketScreen">
+                <span class="trh-new-card-icon">&#x1F6D2;</span>
+                <div class="trh-new-card-text">
+                  <div class="trh-new-card-label">Bot Marketplace</div>
+                  <div class="trh-new-card-sub">3 packages available</div>
+                </div>
+              </div>
+              <div class="trh-new-card" id="changelogHeroBtn">
+                <span class="trh-new-card-icon">&#x1F4AC;</span>
+                <div class="trh-new-card-text">
+                  <div class="trh-new-card-label">What's New — v3.0</div>
+                  <div class="trh-new-card-sub">Visual overhaul + analytics</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Quick action buttons -->
+            <div class="trh-hero-actions">
+              <button class="trh-hero-btn primary quick-nav" data-screen="marketScreen">&#x1F6D2; Open Marketplace</button>
+              <button class="trh-hero-btn ghost quick-nav" data-screen="controlScreen">&#x26A1; Control Center</button>
+              <button class="trh-hero-btn ghost quick-nav" data-screen="ordersScreen">&#x1F4CB; View Orders</button>
+              <button class="trh-hero-btn warn quick-nav" data-screen="emergencyScreen">&#x26A0; Emergency</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen-intro screen-intro-home">
+          <div class="screen-intro-copy">
+            <p class="hero-kicker">Platform Home</p>
+            <h2>Operational command deck for the full TRH build and delivery pipeline.</h2>
+            <p>
+              Move between sales, control, provisioning, and client visibility with a single workspace built for operators.
+            </p>
+          </div>
+          <div class="screen-intro-stats" aria-hidden="true">
+            <div class="intro-stat-card">
+              <span>Command Scope</span>
+              <strong>9 Core Screens</strong>
+            </div>
+            <div class="intro-stat-card">
+              <span>Delivery Model</span>
+              <strong>Quote to Provision</strong>
+            </div>
+            <div class="intro-stat-card intro-stat-logo">
+              <img class="intro-logo" src="/assets/trh-logo.jpg" alt="" />
+            </div>
+          </div>
+        </div>
+        <div class="hero-banner">
+          <div class="hero-copy">
+            <p class="hero-kicker">TRH Unified Ops</p>
+            <h3>One platform for bot control, sales, delivery, and growth.</h3>
+            <p>
+              Run all bot operations from a single command surface with secure controls,
+              live telemetry, and full build visibility.
+            </p>
+          </div>
+          <div class="hero-actions">
+            <button class="button quick-nav" data-screen="marketScreen">Open Marketplace</button>
+            <button class="button ghost quick-nav" data-screen="ordersScreen">View Orders</button>
+            <button class="button ghost quick-nav" data-screen="buildLibraryScreen">Open Build Library</button>
+          </div>
+        </div>
+        <div class="home-command-grid">
+          <article class="home-brief">
+            <h3>Operational Scope</h3>
+            <p>
+              This control panel runs TRH bot operations end-to-end: live telemetry, economy protection,
+              secure admin controls, marketplace checkout, and provisioning workflow.
+            </p>
+          </article>
+          <div class="kpi-grid home-pillars">
+            <div class="kpi">
+              <span>What It Controls</span>
+              <strong>Bot Ops + Commerce</strong>
+            </div>
+            <div class="kpi">
+              <span>Security Layer</span>
+              <strong>Session + Signed Webhooks</strong>
+            </div>
+            <div class="kpi">
+              <span>Payments</span>
+              <strong>Mock + Stripe Ready</strong>
+            </div>
+            <div class="kpi">
+              <span>Delivery Flow</span>
+              <strong>Orders + Provisioning</strong>
+            </div>
+          </div>
+        </div>
+        <div class="kpi-grid overview-grid home-overview">
+          <div class="kpi"><span>Bot Packages</span><strong id="overviewBotPackages">0</strong></div>
+          <div class="kpi"><span>Total Modules Built</span><strong id="overviewTotalModules">0</strong></div>
+          <div class="kpi"><span>Total Orders</span><strong id="overviewTotalOrders">0</strong></div>
+          <div class="kpi"><span>Revenue USD</span><strong id="overviewRevenueUsd">0</strong></div>
+          <div class="kpi"><span>Ready To Provision</span><strong id="overviewReadyToProvision">0</strong></div>
+          <div class="kpi"><span>Delivered Orders</span><strong id="overviewDeliveredOrders">0</strong></div>
+        </div>
+        <section class="module-cluster full-map">
+          <h3>Everything Built For Bots</h3>
+          <div id="homeBuildMap" class="market-grid"></div>
+        </section>
+
+        <section class="module-cluster team-bots-section">
+          <h3>TRH Development Team</h3>
+          <p class="meta-line">Active bots built and maintained by TRH Development.</p>
+          <div class="team-bots-grid" id="teamBotsGrid">
+            <article class="team-bot-card" data-nav-screen="myBotsScreen" role="button" tabindex="0" aria-label="Retreats Bot">
+              <img class="team-bot-logo" src="/assets/bots/retreats-bot.svg" alt="Retreats Bot logo" loading="lazy" />
+              <span class="team-bot-name">Retreats Bot</span>
+            </article>
+            <article class="team-bot-card" data-nav-screen="myBotsScreen" role="button" tabindex="0" aria-label="Longpine Bot">
+              <img class="team-bot-logo" src="/assets/bots/longpine-bot.svg" alt="Longpine Bot logo" loading="lazy" />
+              <span class="team-bot-name">Longpine Bot</span>
+            </article>
+            <article class="team-bot-card" data-nav-screen="myBotsScreen" role="button" tabindex="0" aria-label="MADDO Gaming Bot">
+              <img class="team-bot-logo" src="/assets/bots/maddo-gaming-bot.svg" alt="MADDO Gaming Bot logo" loading="lazy" />
+              <span class="team-bot-name">MADDO Gaming Bot</span>
+            </article>
+            <article class="team-bot-card" data-nav-screen="homeScreen" role="button" tabindex="0" aria-label="TRH Development Bot">
+              <img class="team-bot-logo" src="/assets/bots/trh-development-bot.svg" alt="TRH Development Bot logo" loading="lazy" />
+              <span class="team-bot-name">TRH Development Bot</span>
+            </article>
+            <article class="team-bot-card" data-nav-screen="myBotsScreen" role="button" tabindex="0" aria-label="VEXORA Bot">
+              <img class="team-bot-logo" src="/assets/bots/vexora-bot.svg" alt="VEXORA Bot logo" loading="lazy" />
+              <span class="team-bot-name">VEXORA Bot</span>
+            </article>
+            <article class="team-bot-card" data-nav-screen="myBotsScreen" role="button" tabindex="0" aria-label="Midnight Pine Racing Bot">
+              <img class="team-bot-logo" src="/assets/bots/midnight-pine-bot.svg" alt="Midnight Pine Racing Bot logo" loading="lazy" />
+              <span class="team-bot-name">Midnight Pine Racing Bot</span>
+            </article>
+          </div>
+        </section>
+
+        <section class="module-cluster team-bots-section">
+          <h3>Shadows of Ruin Bot</h3>
+          <p class="meta-line">Dedicated server bot for the Shadows of Ruin community.</p>
+          <div class="team-bots-grid team-bots-single">
+            <article class="team-bot-card" data-nav-screen="myBotsScreen" role="button" tabindex="0" aria-label="Shadows of Ruin Bot">
+              <img class="team-bot-logo" src="/assets/bots/shadows-of-ruin-bot.svg" alt="Shadows of Ruin Bot logo" loading="lazy" />
+              <span class="team-bot-name">Shadows of Ruin Bot</span>
+            </article>
+          </div>
+        </section>
+
+          <!-- ═══ ANALYTICS SECTION ══════════════════════════════════════════ -->
+          <section class="analytics-section">
+            <h3>Platform Analytics</h3>
+            <div class="analytics-grid">
+              <div class="analytics-card">
+                <div class="analytics-card-label">Bot Packages</div>
+                <div class="analytics-card-value" id="analyticsPackages">3</div>
+                <div class="analytics-card-delta up">&#x25B2; Available now</div>
+                <div class="sparkbar-row" id="sparkbarPackages"></div>
+              </div>
+              <div class="analytics-card">
+                <div class="analytics-card-label">Total Revenue</div>
+                <div class="analytics-card-value" id="analyticsRevenue">$0</div>
+                <div class="analytics-card-delta flat" id="analyticsRevDelta">Loading...</div>
+                <div class="sparkbar-row" id="sparkbarRevenue"></div>
+              </div>
+              <div class="analytics-card">
+                <div class="analytics-card-label">Delivery Rate</div>
+                <div class="analytics-card-value" id="analyticsDelivery">0%</div>
+                <div class="analytics-card-delta up">&#x25B2; On track</div>
+                <div class="sparkbar-row" id="sparkbarDelivery"></div>
+              </div>
+              <div class="analytics-card">
+                <div class="analytics-card-label">System Health</div>
+                <div class="analytics-card-value" id="analyticsHealth">OK</div>
+                <div class="analytics-card-delta up">&#x25B2; All systems nominal</div>
+                <div class="activity-strip" id="activityHeatmap"></div>
+              </div>
+            </div>
+          </section>
+
+        </section>
+
+      <section id="businessScreen" class="screen">
+        <section class="card screen-hero hero-library">
+          <div class="hero-copy-block">
+            <div class="hero-meta-row">
+              <span class="hero-chip">Client Delivery</span>
+              <span class="hero-chip">Pipeline Control</span>
+              <span class="hero-chip">SLA Watch</span>
+            </div>
+            <h2>Business Suite</h2>
+            <p>TRH development delivery hub for bots, dashboards, custom scripts, and automation projects.</p>
+          </div>
+          <div class="hero-seal-wrap" aria-hidden="true">
+            <img class="hero-seal" src="/assets/trh-logo.svg" alt="" />
+            <span class="hero-grid-tag">DISCOVERY TO DELIVERY</span>
+          </div>
+        </section>
+
+        <section id="businessSlaStrip" class="sla-strip" hidden>
+          <strong>SLA Alert</strong>
+          <span id="businessSlaStripText">No SLA breaches detected.</span>
+          <button id="businessSlaStripFilterBtn" class="button tiny ghost">Show Breached</button>
+          <button id="businessSlaStripExportBtn" class="button tiny ghost">Export SLA CSV</button>
+          <button id="businessSlaStripRevertAllBtn" class="button tiny ghost">Revert All Sims</button>
+        </section>
+
+        <section class="kpi-grid overview-grid" id="businessKpiGrid">
+          <div class="kpi"><span>Total Inquiries</span><strong id="businessKpiTotalInquiries">0</strong></div>
+          <div class="kpi"><span>Conversion Rate</span><strong id="businessKpiConversionRate">0%</strong></div>
+          <div class="kpi"><span>Quoted Budget USD</span><strong id="businessKpiQuotedBudget">0</strong></div>
+          <div class="kpi"><span>Active Pipeline</span><strong id="businessKpiActivePipeline">0</strong></div>
+          <div class="kpi kpi-alert"><span>SLA Breached</span><strong id="businessKpiSLABreached">0</strong></div>
+        </section>
+
+        <section class="card marketplace">
+          <h2>Service Lines</h2>
+          <p class="meta-line">Production development offerings for business systems and communities.</p>
+          <div id="businessServiceGrid" class="market-grid"></div>
+        </section>
+
+        <section class="card marketplace">
+          <h2>Project Intake</h2>
+          <p class="meta-line">Submit a project scope request and TRH can deliver a tailored build plan.</p>
+          <div class="purchase-grid">
+            <label>
+              Company Name
+              <input id="businessCompanyName" type="text" placeholder="TRH Client LLC" />
+            </label>
+            <label>
+              Contact Name
+              <input id="businessContactName" type="text" placeholder="Project Owner" />
+            </label>
+            <label>
+              Contact Email
+              <input id="businessEmail" type="email" placeholder="owner@company.com" />
+            </label>
+            <label>
+              Discord Handle
+              <input id="businessDiscord" type="text" placeholder="owner#1234" />
+            </label>
+            <label>
+              Service Category
+              <select id="businessServiceCategory"></select>
+            </label>
+            <label>
+              Budget (USD)
+              <input id="businessBudgetUsd" type="number" min="0" placeholder="5000" />
+            </label>
+          </div>
+          <label>
+            Project Summary
+            <textarea id="businessProjectSummary" rows="4" placeholder="Describe your bot, dashboard, or script requirements, integrations, and delivery goals."></textarea>
+            <span id="businessProjectSummaryCount" class="char-count">0 / 3000</span>
+          </label>
+          <div class="actions">
+            <button id="submitBusinessInquiryBtn" class="button">Submit Inquiry</button>
+            <button id="generateBusinessQuoteBtn" class="button ghost">Generate Quote Draft</button>
+            <button id="refreshBusinessInquiriesBtn" class="button ghost tiny">Refresh Pipeline</button>
+          </div>
+          <p id="businessInquiryStatus" class="status-line">Ready for intake submission.</p>
+          <div class="quote-preview" id="businessQuotePreview">Generate a quote draft to preview category pricing tiers and milestone structure.</div>
+        </section>
+
+        <section class="card marketplace">
+          <div class="card-head">
+            <h2>Inquiry Pipeline</h2>
+            <div class="head-actions">
+              <label class="inline-select">
+                Status Filter
+                <select id="businessInquiryFilter">
+                  <option value="all">All</option>
+                  <option value="new">New</option>
+                  <option value="discovery">Discovery</option>
+                  <option value="quoted">Quoted</option>
+                  <option value="in-progress">In Progress</option>
+                  <option value="delivered">Delivered</option>
+                  <option value="declined">Declined</option>
+                </select>
+              </label>
+              <label class="inline-select">
+                Sort
+                <select id="businessInquirySort">
+                  <option value="breach-first">SLA Priority</option>
+                  <option value="newest">Newest</option>
+                  <option value="oldest">Oldest</option>
+                  <option value="budget-high">Budget High</option>
+                </select>
+              </label>
+              <label class="inline-select">
+                Created From
+                <input id="businessSlaExportStart" type="date" />
+              </label>
+              <label class="inline-select">
+                Created To
+                <input id="businessSlaExportEnd" type="date" />
+              </label>
+              <label class="inline-check">
+                <input id="businessSlaExportBreachedOnly" type="checkbox" />
+                Breached Only
+              </label>
+              <label class="inline-check">
+                <input id="businessSlaAutoExport" type="checkbox" />
+                Auto Export
+              </label>
+              <div class="inline-preset-group" aria-label="SLA Export Presets">
+                <button id="businessSlaPresetToday" class="button tiny ghost" type="button">Today</button>
+                <button id="businessSlaPreset7d" class="button tiny ghost" type="button">Last 7d</button>
+                <button id="businessSlaPreset30d" class="button tiny ghost" type="button">Last 30d</button>
+              </div>
+              <button id="businessSlaExportClearBtn" class="button tiny ghost" type="button">Clear Filters</button>
+              <button id="businessSlaExportBtn" class="button tiny ghost">Export SLA CSV</button>
+            </div>
+          </div>
+          <p class="meta-line">Operator visibility for incoming business development requests.</p>
+          <ul id="businessInquiryRows" class="log"></ul>
+        </section>
+
+        <section class="card marketplace">
+          <h2>Pipeline Board</h2>
+          <p class="meta-line">Drag inquiries between stages for fast funnel operations.</p>
+          <div id="businessPipelineBoard" class="pipeline-board">
+            <article class="pipeline-column" data-stage="new">
+              <header><strong>New</strong><span id="pipelineCountNew">0</span></header>
+              <ul class="pipeline-list" data-stage="new"></ul>
+            </article>
+            <article class="pipeline-column" data-stage="discovery">
+              <header><strong>Discovery</strong><span id="pipelineCountDiscovery">0</span></header>
+              <ul class="pipeline-list" data-stage="discovery"></ul>
+            </article>
+            <article class="pipeline-column" data-stage="quoted">
+              <header><strong>Quoted</strong><span id="pipelineCountQuoted">0</span></header>
+              <ul class="pipeline-list" data-stage="quoted"></ul>
+            </article>
+            <article class="pipeline-column" data-stage="in-progress">
+              <header><strong>In Progress</strong><span id="pipelineCountInProgress">0</span></header>
+              <ul class="pipeline-list" data-stage="in-progress"></ul>
+            </article>
+            <article class="pipeline-column" data-stage="delivered">
+              <header><strong>Delivered</strong><span id="pipelineCountDelivered">0</span></header>
+              <ul class="pipeline-list" data-stage="delivered"></ul>
+            </article>
+            <article class="pipeline-column" data-stage="declined">
+              <header><strong>Declined</strong><span id="pipelineCountDeclined">0</span></header>
+              <ul class="pipeline-list" data-stage="declined"></ul>
+            </article>
+          </div>
+        </section>
+      </section>
+
+      <div id="timelineModal" class="modal" hidden>
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+          <header class="modal-header">
+            <h2>Inquiry Timeline</h2>
+            <button id="timelineCloseBtn" class="button tiny ghost" aria-label="Close">×</button>
+          </header>
+          <section class="modal-body">
+            <div id="timelineInquiryInfo">
+              <p><strong id="timelineCompanyName">—</strong></p>
+              <p id="timelineStatus">Status: —</p>
+              <p id="timelineAge">Age: —</p>
+              <p id="timelineSLAMetrics" class="timeline-sla"></p>
+            </div>
+            <h3>Stage Transitions</h3>
+            <ul id="timelineStageList" class="timeline-list"></ul>
+          </section>
+        </div>
+      </div>
+
+      <section id="controlScreen" class="screen">
+        <section class="card screen-hero hero-control">
+          <div class="hero-copy-block">
+            <div class="hero-meta-row">
+              <span class="hero-chip">Live Ops</span>
+              <span class="hero-chip">Economy Guard</span>
+              <span class="hero-chip">Owner Lock</span>
+            </div>
+            <h2>Control Center</h2>
+            <p>Operate live bot systems, status telemetry, and economy controls in real time.</p>
+          </div>
+          <div class="hero-seal-wrap" aria-hidden="true">
+            <img class="hero-seal" src="/assets/trh-logo.svg" alt="" />
+            <span class="hero-grid-tag">REAL-TIME ENFORCEMENT</span>
+          </div>
+        </section>
+
+        <section id="authCard" class="card auth-card">
+          <h2>Operator Access</h2>
+          <p class="meta-line">Sign in with your account credentials, or use Discord OAuth.</p>
+          <div class="auth-tabs">
+            <button class="auth-tab active" id="authTabEmail" type="button">&#x2709; Email / Password</button>
+            <button class="auth-tab" id="authTabDiscordId" type="button">Discord ID</button>
+          </div>
+          <div class="auth-row">
+            <input id="operatorEmailInput" type="email" placeholder="Email address" autocomplete="email" />
+            <input id="operatorDiscordIdInput" type="text" inputmode="numeric" placeholder="Discord user ID" autocomplete="username" class="auth-input-hidden" />
+            <input id="operatorPasswordInput" type="password" placeholder="Password" autocomplete="current-password" />
+            <button id="loginBtn" class="button">Sign In</button>
+          </div>
+          <div class="auth-divider"><span>or</span></div>
+          <div class="auth-discord-row">
+            <button id="discordLoginBtn" class="button ghost" type="button">&#x1F3AE; Sign in with Discord</button>
+          </div>
+          <div class="auth-sync-row" id="discordSyncRow" hidden>
+            <span class="meta-line" id="discordSyncLabel">Link Discord profile — captures your ID &amp; email for account support</span>
+            <button id="discordSyncBtn" class="button ghost tiny" type="button">Sync Discord Profile</button>
+          </div>
+          <p class="meta-line owner-access-note">Owner Discord IDs and owner-role email accounts unlock full owner access automatically.</p>
+        </section>
+
+        <div class="control-layout">
+
+        <section class="stats-grid control-stats-grid">
+          <article class="card">
+            <h2>Bot Status</h2>
+            <p id="botOnline" class="value">-</p>
+          </article>
+          <article class="card">
+            <h2>Guild Count</h2>
+            <p id="guildCount" class="value">0</p>
+          </article>
+          <article class="card">
+            <h2>Users Served</h2>
+            <p id="usersServed" class="value">0</p>
+          </article>
+          <article class="card">
+            <h2>Economy Balance</h2>
+            <p id="economyBalance" class="value">0</p>
+          </article>
+        </section>
+
+        <section id="economyAnomalyStrip" class="anomaly-strip" hidden>
+          <strong>Economy Watch</strong>
+          <span id="economyAnomalyText">No anomalies detected.</span>
+        </section>
+
+        <section class="card controls control-live-controls">
+          <h2>Live Controls</h2>
+          <div class="inputs">
+            <label>
+              Guild Count
+              <input id="guildCountInput" type="number" min="0" value="0" />
+            </label>
+            <label>
+              Users Served
+              <input id="usersServedInput" type="number" min="0" value="0" />
+            </label>
+            <label>
+              Economy Balance
+              <input id="economyBalanceInput" type="number" min="0" value="0" />
+            </label>
+          </div>
+          <div class="actions">
+            <button id="saveStatsBtn" class="button">Save Metrics</button>
+            <button id="announceBtn" class="button ghost">Send Announcement</button>
+          </div>
+          <textarea
+            id="announcementInput"
+            placeholder="Write announcement to broadcast to bot systems"
+            rows="3"
+          ></textarea>
+        </section>
+
+        <section id="ownerAccessCard" class="card auth-card owner-access">
+          <h2>Owner Elevation</h2>
+          <p class="meta-line">Owner-only controls require a second credential.</p>
+          <div class="auth-row">
+            <input id="ownerPasswordInput" type="password" placeholder="Owner control password" />
+            <button id="ownerLoginBtn" class="button">Unlock Owner Panel</button>
+          </div>
+          <p id="ownerStatusLine" class="status-line">Owner panel locked.</p>
+        </section>
+
+        <section id="ownerPanel" class="owner-panel-full" hidden>
+          <!-- Owner Sub-Navigation -->
+          <nav class="owner-subnav" role="tablist" aria-label="Owner panel screens">
+            <button class="owner-nav-btn active" data-owner-screen="ownerDashboard" role="tab">Dashboard</button>
+            <button class="owner-nav-btn" data-owner-screen="ownerUsers" role="tab">Users</button>
+            <button class="owner-nav-btn" data-owner-screen="ownerPayments" role="tab">Payments</button>
+            <button class="owner-nav-btn" data-owner-screen="ownerServices" role="tab">Services</button>
+            <button class="owner-nav-btn" data-owner-screen="ownerEnforcement" role="tab">Enforcement</button>
+            <button class="owner-nav-btn" data-owner-screen="ownerLogs" role="tab">Logs</button>
+            <button class="owner-nav-btn" data-owner-screen="ownerSettings" role="tab">Settings</button>
+          </nav>
+
+          <!-- DASHBOARD OVERVIEW -->
+          <div id="ownerDashboard" class="owner-screen active" role="tabpanel">
+            <div class="owner-screen-head">
+              <h2>Dashboard Overview</h2>
+              <div class="head-actions">
+                <button id="ownerRefreshBtn" class="button tiny ghost">Refresh</button>
+              </div>
+            </div>
+            <div class="kpi-grid owner-dash-kpis">
+              <div class="kpi"><span>Total Revenue</span><strong id="ownerDashRevenue">$0</strong></div>
+              <div class="kpi"><span>Total Clients</span><strong id="ownerTotalClients">0</strong></div>
+              <div class="kpi"><span>Active</span><strong id="ownerActiveClients">0</strong></div>
+              <div class="kpi kpi-alert"><span>Past Due</span><strong id="ownerPastDue">0</strong></div>
+              <div class="kpi kpi-warn"><span>Restricted</span><strong id="ownerRestricted">0</strong></div>
+              <div class="kpi kpi-danger"><span>Suspended</span><strong id="ownerSuspended">0</strong></div>
+            </div>
+            <div class="kpi-grid owner-dash-kpis">
+              <div class="kpi"><span>Bots Running</span><strong id="ownerBotsRunning">0</strong></div>
+              <div class="kpi"><span>Bots Stopped</span><strong id="ownerBotsStopped">0</strong></div>
+              <div class="kpi"><span>Bots Disabled</span><strong id="ownerBotsDisabled">0</strong></div>
+              <div class="kpi kpi-alert"><span>Flagged Accounts</span><strong id="ownerFlaggedCount">0</strong></div>
+              <div class="kpi"><span>Outstanding Balance</span><strong id="ownerOutstandingUsd">$0</strong></div>
+              <div class="kpi"><span>Paid Orders</span><strong id="ownerDashPaidOrders">0</strong></div>
+            </div>
+            <div class="owner-system-controls card">
+              <h3>Global System Controls</h3>
+              <div class="actions owner-actions-wrap">
+                <button id="ownerStartAllBtn" class="button tiny">Start All Bots</button>
+                <button id="ownerStopAllBtn" class="button tiny ghost">Stop All Bots</button>
+                <button id="ownerRestartAllBtn" class="button tiny ghost">Restart All</button>
+                <button id="ownerForceUpdateAllBtn" class="button tiny ghost">Force Update</button>
+                <button id="ownerMaintenanceOnBtn" class="button tiny ghost">Maintenance ON</button>
+                <button id="ownerMaintenanceOffBtn" class="button tiny ghost">Maintenance OFF</button>
+                <button id="ownerGlobalShutdownBtn" class="button tiny danger">GLOBAL SHUTDOWN</button>
+              </div>
+              <p id="ownerSystemStatus" class="status-line">Owner systems ready.</p>
+            </div>
+            <div class="card">
+              <h3>Recent Login Activity</h3>
+              <ul id="ownerDashRecentLogins" class="log compact-log"></ul>
+            </div>
+            <div class="card">
+              <h3>Owner Notifications</h3>
+              <ul id="ownerNotifications" class="log"></ul>
+            </div>
+          </div>
+
+          <!-- USERS -->
+          <div id="ownerUsers" class="owner-screen" role="tabpanel">
+            <div class="owner-screen-head">
+              <h2>User Management</h2>
+              <div class="head-actions">
+                <input id="ownerUserSearch" type="text" placeholder="Search name, email, Discord..." class="owner-search-input" />
+                <select id="ownerUserStateFilter">
+                  <option value="all">All States</option>
+                  <option value="active">Active</option>
+                  <option value="past_due">Past Due</option>
+                  <option value="restricted">Restricted</option>
+                  <option value="suspended">Suspended</option>
+                </select>
+                <label class="inline-check"><input id="ownerUserFlaggedOnly" type="checkbox" /> Flagged Only</label>
+                <button id="ownerUsersRefreshBtn" class="button tiny ghost">Refresh</button>
+              </div>
+            </div>
+            <p class="meta-line">Full user list with payment status, quick actions, and client controls.</p>
+            <ul id="ownerClientRows" class="owner-user-list"></ul>
+          </div>
+
+          <!-- PAYMENTS -->
+          <div id="ownerPayments" class="owner-screen" role="tabpanel">
+            <div class="owner-screen-head">
+              <h2>Payment Management</h2>
+            </div>
+            <div class="kpi-grid">
+              <div class="kpi"><span>Total Clients</span><strong id="ownerPayTotalClients">0</strong></div>
+              <div class="kpi kpi-alert"><span>Past Due</span><strong id="ownerPayPastDue">0</strong></div>
+              <div class="kpi kpi-warn"><span>Restricted</span><strong id="ownerPayRestricted">0</strong></div>
+              <div class="kpi kpi-danger"><span>Suspended</span><strong id="ownerPaySuspended">0</strong></div>
+              <div class="kpi"><span>Outstanding USD</span><strong id="ownerPayOutstanding">$0</strong></div>
+            </div>
+            <div class="card">
+              <h3>Client Payment Matrix</h3>
+              <p class="meta-line">Adjust totals, paid amounts, and due dates per client. Apply financial overrides.</p>
+              <ul id="ownerPaymentRows" class="owner-user-list"></ul>
+            </div>
+          </div>
+
+          <!-- SERVICES -->
+          <div id="ownerServices" class="owner-screen" role="tabpanel">
+            <div class="owner-screen-head">
+              <h2>Service Control</h2>
+            </div>
+            <p class="meta-line">Per-user bot controls, feature enable/disable, and service status management.</p>
+            <ul id="ownerServiceRows" class="owner-user-list"></ul>
+          </div>
+
+          <!-- ENFORCEMENT -->
+          <div id="ownerEnforcement" class="owner-screen" role="tabpanel">
+            <div class="owner-screen-head">
+              <h2>Enforcement Actions</h2>
+            </div>
+            <div class="card enforcement-panel">
+              <h3>Apply Enforcement</h3>
+              <p class="meta-line">Select a client and apply an enforcement action. All actions are logged permanently.</p>
+              <div class="enforcement-form">
+                <label>
+                  Target Client
+                  <select id="enfClientSelect"><option value="">— Select Client —</option></select>
+                </label>
+                <label>
+                  Action
+                  <select id="enfActionSelect">
+                    <option value="strip_permissions">Strip Bot Permissions</option>
+                    <option value="remove_role_access">Remove Role Access</option>
+                    <option value="disable_features">Disable All Features</option>
+                    <option value="lock_account">Lock Account</option>
+                    <option value="terminate_service">Terminate Service</option>
+                  </select>
+                </label>
+                <label>
+                  Reason (required)
+                  <select id="enfReasonSelect">
+                    <option value="">— Select Reason —</option>
+                    <option value="non-payment">Non-payment</option>
+                    <option value="chargeback">Chargeback</option>
+                    <option value="tos-violation">TOS Violation</option>
+                    <option value="abuse-exploitation">Abuse / Exploitation</option>
+                    <option value="custom">Custom Reason</option>
+                  </select>
+                </label>
+                <label>
+                  Notes / Details
+                  <textarea id="enfNoteInput" rows="3" placeholder="Describe the specific violation or reason for this enforcement action."></textarea>
+                </label>
+              </div>
+              <div class="actions">
+                <button id="enfApplyBtn" class="button danger">Apply Enforcement</button>
+              </div>
+              <p id="enfStatusLine" class="status-line">Select a client and reason to proceed.</p>
+            </div>
+            <div class="card">
+              <h3>Enforcement Log</h3>
+              <p class="meta-line">All enforcement actions applied across all clients.</p>
+              <ul id="ownerEnforcementLog" class="log"></ul>
+            </div>
+          </div>
+
+          <!-- LOGS (Login Tracking) -->
+          <div id="ownerLogs" class="owner-screen" role="tabpanel">
+            <div class="owner-screen-head">
+              <h2>Activity Logs</h2>
+              <div class="head-actions">
+                <input id="loginLogSearch" type="text" placeholder="Search IP, Discord ID, browser..." class="owner-search-input" />
+                <select id="loginLogSuccessFilter">
+                  <option value="all">All Attempts</option>
+                  <option value="true">Successful Only</option>
+                  <option value="false">Failed Only</option>
+                </select>
+                <label class="inline-check"><input id="loginLogFlaggedFilter" type="checkbox" /> Flagged Accounts Only</label>
+                <button id="loginLogRefreshBtn" class="button tiny ghost">Refresh</button>
+                <button id="ownerForceLogoutAllBtn" class="button tiny danger">Force Logout All Sessions</button>
+              </div>
+            </div>
+            <p class="meta-line">Every login attempt tracked: Discord ID, IP, device, browser, time, and result.</p>
+            <div class="login-log-table-wrap">
+              <table class="login-log-table">
+                <thead>
+                  <tr>
+                    <th>Discord ID</th>
+                    <th>IP Address</th>
+                    <th>Device</th>
+                    <th>Browser</th>
+                    <th>Time</th>
+                    <th>Status</th>
+                    <th>Flag</th>
+                  </tr>
+                </thead>
+                <tbody id="loginLogTableBody"></tbody>
+              </table>
+            </div>
+            <p id="loginLogStatus" class="status-line meta-line">Loading login history...</p>
+          </div>
+
+          <!-- SETTINGS -->
+          <div id="ownerSettings" class="owner-screen" role="tabpanel">
+            <div class="owner-screen-head">
+              <h2>Owner Settings</h2>
+            </div>
+            <div class="card">
+              <h3>Pricing Catalog Overview</h3>
+              <div class="settings-pricing-grid">
+                <div class="pricing-tier-block">
+                  <h4>Logo Services</h4>
+                  <ul id="settingsLogoCatalog" class="settings-price-list"></ul>
+                </div>
+                <div class="pricing-tier-block">
+                  <h4>Discord Services</h4>
+                  <ul id="settingsDiscordCatalog" class="settings-price-list"></ul>
+                </div>
+                <div class="pricing-tier-block">
+                  <h4>Subscription Plans</h4>
+                  <ul id="settingsSubPlans" class="settings-price-list"></ul>
+                </div>
+                <div class="pricing-tier-block">
+                  <h4>Bot Services</h4>
+                  <ul id="settingsBotCatalog" class="settings-price-list"></ul>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <h3>System Information</h3>
+              <div class="kpi-grid">
+                <div class="kpi"><span>Owner IDs</span><strong>2 Allowlisted</strong></div>
+                <div class="kpi"><span>Session Store</span><strong>File-based</strong></div>
+                <div class="kpi"><span>Payment Mode</span><strong id="settingsPaymentMode">—</strong></div>
+                <div class="kpi"><span>Panel Version</span><strong>2.0</strong></div>
+              </div>
+            </div>
+            <div class="card">
+              <h3>Configuration Health</h3>
+              <div class="owner-screen-actions">
+                <button id="settingsExportConfigJsonBtn" class="button tiny ghost" type="button">Export JSON</button>
+                <button id="settingsExportConfigCsvBtn" class="button tiny ghost" type="button">Export CSV</button>
+              </div>
+              <p id="settingsConfigSummary" class="meta-line">Loading configuration checks...</p>
+              <ul id="settingsConfigHealth" class="settings-price-list"></ul>
+              <p id="settingsConfigExportStatus" class="status-line meta-line">Ready to export readiness report.</p>
+            </div>
+            <div class="card">
+              <h3>Image Source Health</h3>
+              <p id="settingsImageHealthSummary" class="meta-line">Loading image source checks...</p>
+              <ul id="settingsImageHealth" class="settings-price-list"></ul>
+            </div>
+          </div>
+
+        </section>
+
+        <section class="card control-recent-actions">
+          <h2>Recent Actions</h2>
+          <ul id="recentActions" class="log"></ul>
+        </section>
+
+        <section class="ops-grid control-ops-grid">
+          <article class="card">
+            <div class="card-head">
+              <h2>System Pulse</h2>
+              <div class="head-actions">
+                <button id="refreshMetricsBtn" class="button tiny ghost">Refresh</button>
+                <button id="exportAuditBtn" class="button tiny">Export Audit</button>
+              </div>
+            </div>
+            <div class="kpi-grid">
+              <div class="kpi">
+                <span>WS Clients</span>
+                <strong id="wsClients">0</strong>
+              </div>
+              <div class="kpi">
+                <span>Memory (MB)</span>
+                <strong id="memoryRssMb">0</strong>
+              </div>
+              <div class="kpi">
+                <span>TX Count 24h</span>
+                <strong id="txCount24h">0</strong>
+              </div>
+              <div class="kpi">
+                <span>TX Volume 24h</span>
+                <strong id="txVolume24h">0</strong>
+              </div>
+            </div>
+            <p id="lastUpdateAt" class="meta-line">Last update: -</p>
+            <p id="statusLine" class="status-line">System ready.</p>
+          </article>
+
+          <article class="card">
+            <h2>Economy Transaction Tape</h2>
+            <ul id="ledgerRows" class="log"></ul>
+          </article>
+        </section>
+
+        </div>
+      </section>
+
+      <section id="marketScreen" class="screen">
+        <section class="card screen-hero hero-market">
+          <div class="hero-copy-block">
+            <div class="hero-meta-row">
+              <span class="hero-chip">Packages</span>
+              <span class="hero-chip">Checkout</span>
+              <span class="hero-chip">Payment Modes</span>
+            </div>
+            <h2>Bot Marketplace</h2>
+            <p>Sell TRH bot packages with checkout, payment handling, and immediate order capture.</p>
+          </div>
+          <div class="hero-seal-wrap" aria-hidden="true">
+            <img class="hero-seal" src="/assets/trh-logo.svg" alt="" />
+            <span class="hero-grid-tag">COMMERCIAL DEPLOYMENT</span>
+          </div>
+        </section>
+
+        <section class="card marketplace">
+          <div class="card-head">
+            <h2>Bot Marketplace</h2>
+            <span id="paymentModeBadge" class="market-badge">Payment mode: loading...</span>
+          </div>
+          <div id="storeCatalog" class="market-grid"></div>
+
+          <section class="module-cluster">
+            <h3>Ranks, Roles, Buyouts, Build Plans, Custom Bots</h3>
+            <p class="meta-line">Owner and user purchase options across entitlement, buyout, build, and custom bot offerings.</p>
+            <div class="offering-tabs">
+              <button id="offeringTabAll" class="button tiny ghost active" data-audience="all">All</button>
+              <button id="offeringTabUsers" class="button tiny ghost" data-audience="user">Users</button>
+              <button id="offeringTabOwners" class="button tiny ghost" data-audience="owner">Owners</button>
+            </div>
+            <div id="offeringCatalog" class="market-grid"></div>
+          </section>
+
+          <div class="purchase-panel">
+            <h3>Purchase Flow</h3>
+            <p class="meta-line purchase-hook">Locked-in launch pricing is shown below. Select a package and secure the current offer before it rotates.</p>
+            <div class="purchase-grid">
+              <label>
+                Product Offering
+                <select id="purchaseBotId"></select>
+              </label>
+              <label>
+                Buyer Type
+                <select id="purchaseBuyerType">
+                  <option value="user">User</option>
+                  <option value="owner">Owner</option>
+                </select>
+              </label>
+              <label>
+                Customer Email
+                <input id="purchaseEmail" type="email" placeholder="owner@server.com" />
+              </label>
+              <label>
+                Discord Handle
+                <input id="purchaseDiscord" type="text" placeholder="username#1234" />
+              </label>
+              <label>
+                Payment Method
+                <select id="purchasePaymentMethod">
+                  <option value="mock">Mock (instant local)</option>
+                  <option value="stripe">Stripe Checkout</option>
+                </select>
+              </label>
+            </div>
+            <label>
+              Custom Bot / Build Brief (required for custom offerings)
+              <textarea id="purchaseCustomBrief" rows="3" placeholder="Describe roles, rank logic, integrations, economy, moderation, and desired timeline."></textarea>
+            </label>
+            <button id="purchaseBtn" class="button">Create Checkout</button>
+            <p id="purchaseStatus" class="status-line">Ready for order creation.</p>
+          </div>
+        </section>
+
+        <!-- LOGO SERVICES -->
+        <section class="card marketplace pricing-section">
+          <div class="card-head">
+            <h2>Logo Services</h2>
+            <span class="market-badge">Creative Identity</span>
+          </div>
+          <p class="meta-line">Brand-ready logo packages for every stage — from quick identity to full elite brand kit.</p>
+          <div id="logoServiceGrid" class="market-grid"></div>
+          <div class="pricing-addons-row">
+            <h4>Add-Ons</h4>
+            <div id="logoAddOnsGrid" class="addons-grid"></div>
+          </div>
+        </section>
+
+        <!-- DISCORD SERVICES -->
+        <section class="card marketplace pricing-section">
+          <div class="card-head">
+            <h2>Discord Server Services</h2>
+            <span class="market-badge">Community Infrastructure</span>
+          </div>
+          <p class="meta-line">Professional Discord server setup and deployment from quick-start to full enterprise builds.</p>
+          <h4 class="pricing-sub-head">Server Setups</h4>
+          <div id="discordSetupGrid" class="market-grid"></div>
+          <h4 class="pricing-sub-head">Templates</h4>
+          <div id="discordTemplateGrid" class="market-grid"></div>
+        </section>
+
+        <!-- SUBSCRIPTION SYSTEM -->
+        <section class="card marketplace pricing-section">
+          <div class="card-head">
+            <h2>Retreats Shop — Subscriptions</h2>
+            <span class="market-badge">Recurring Access</span>
+          </div>
+          <p class="meta-line">Monthly subscription tiers for community members. Unlock VIP and Pro access for exclusive content and perks.</p>
+          <div id="subscriptionPlanGrid" class="market-grid subscription-grid"></div>
+        </section>
+      </section>
+
+      <section id="ordersScreen" class="screen">
+        <section class="card screen-hero hero-orders">
+          <div class="hero-copy-block">
+            <div class="hero-meta-row">
+              <span class="hero-chip">Paid Flow</span>
+              <span class="hero-chip">Reporting</span>
+              <span class="hero-chip">Provisioning</span>
+            </div>
+            <h2>Orders & Delivery</h2>
+            <p>Track paid orders, export reporting, and complete provisioning handoff from one screen.</p>
+          </div>
+          <div class="hero-seal-wrap" aria-hidden="true">
+            <img class="hero-seal" src="/assets/trh-logo.svg" alt="" />
+            <span class="hero-grid-tag">HANDOFF WORKFLOW</span>
+          </div>
+        </section>
+
+        <section class="card marketplace">
+          <div class="card-head">
+            <h2>Orders & Provisioning</h2>
+            <div class="head-actions">
+              <button id="refreshOrdersBtn" class="button tiny ghost">Refresh Orders</button>
+              <button id="exportOrdersBtn" class="button tiny ghost">Export CSV</button>
+            </div>
+          </div>
+          <div class="orders-toolbar">
+            <label>
+              Payment
+              <select id="orderFilterPayment">
+                <option value="all">All</option>
+                <option value="paid">Paid</option>
+                <option value="pending">Pending</option>
+                <option value="failed">Failed</option>
+              </select>
+            </label>
+            <label>
+              Provisioning
+              <select id="orderFilterProvisioning">
+                <option value="all">All</option>
+                <option value="pending">Pending</option>
+                <option value="queued">Queued</option>
+                <option value="processing">Processing</option>
+                <option value="delivered">Delivered</option>
+                <option value="failed">Failed</option>
+              </select>
+            </label>
+            <label>
+              Sort
+              <select id="orderSortSelect">
+                <option value="newest">Newest First</option>
+                <option value="oldest">Oldest First</option>
+                <option value="amount-high">Amount High-Low</option>
+                <option value="amount-low">Amount Low-High</option>
+              </select>
+            </label>
+            <label>
+              Search
+              <input id="orderSearchInput" type="text" placeholder="Order ID, bot, email, discord" />
+            </label>
+            <div class="orders-actions">
+              <button id="clearOrderFiltersBtn" class="button tiny ghost">Clear</button>
+            </div>
+          </div>
+          <p id="orderFilterSummary" class="meta-line">Showing 0 orders.</p>
+          <div class="kpi-grid commerce-kpis">
+            <div class="kpi"><span>Total Orders</span><strong id="commerceTotalOrders">0</strong></div>
+            <div class="kpi"><span>Revenue USD</span><strong id="commerceRevenueUsd">0</strong></div>
+            <div class="kpi"><span>Ready To Provision</span><strong id="commerceReadyProvisioning">0</strong></div>
+            <div class="kpi"><span>Delivered Orders</span><strong id="commerceDeliveredOrders">0</strong></div>
+          </div>
+          <ul id="orderRows" class="log"></ul>
+        </section>
+
+        <section class="card marketplace">
+          <h2>Customer Order Lookup</h2>
+          <div class="purchase-grid">
+            <label>
+              Order ID
+              <input id="lookupOrderId" type="text" placeholder="ord-..." />
+            </label>
+            <label>
+              Customer Email
+              <input id="lookupEmail" type="email" placeholder="owner@server.com" />
+            </label>
+          </div>
+          <button id="lookupOrderBtn" class="button ghost">Check Order Status</button>
+          <p id="lookupStatus" class="status-line">Enter order details to track status.</p>
+        </section>
+
+        <section class="card marketplace">
+          <h2>UI Preferences</h2>
+          <div class="prefs-grid">
+            <label>
+              Panel Density
+              <select id="uiDensitySelect">
+                <option value="comfortable">Comfortable</option>
+                <option value="compact">Compact</option>
+              </select>
+            </label>
+            <label class="pref-check">
+              <input id="reducedMotionToggle" type="checkbox" />
+              <span>Reduced Motion</span>
+            </label>
+            <label class="pref-check">
+              <input id="compactLogsToggle" type="checkbox" />
+              <span>Compact Logs</span>
+            </label>
+          </div>
+          <p class="meta-line">Preferences are saved locally for this operator workstation.</p>
+        </section>
+      </section>
+
+      <section id="myBotsScreen" class="screen">
+        <section class="card screen-hero hero-bots">
+          <div class="hero-copy-block">
+            <div class="hero-meta-row">
+              <span class="hero-chip">Customer Identity</span>
+              <span class="hero-chip">Bot Inventory</span>
+              <span class="hero-chip">Portfolio</span>
+            </div>
+            <h2>Customer Bot Inventory</h2>
+            <p>Display all paid Discord bots owned by a customer identity with delivery token visibility.</p>
+          </div>
+          <div class="hero-seal-wrap" aria-hidden="true">
+            <img class="hero-seal" src="/assets/trh-logo.svg" alt="" />
+            <span class="hero-grid-tag">CLIENT OWNERSHIP VIEW</span>
+          </div>
+        </section>
+
+        <section class="card marketplace">
+          <h2>My Discord Bots</h2>
+          <p class="meta-line">Use the same email or Discord handle used during checkout to list all bots you own.</p>
+          <div class="purchase-grid">
+            <label>
+              Customer Email
+              <input id="myBotsEmail" type="email" placeholder="owner@server.com" />
+            </label>
+            <label>
+              Discord Handle
+              <input id="myBotsDiscord" type="text" placeholder="username#1234" />
+            </label>
+          </div>
+          <div class="actions">
+            <button id="loadMyBotsBtn" class="button">Load My Bots</button>
+          </div>
+          <div class="owner-search-row">
+            <label>
+              Local Bot Search
+              <input id="myBotsSearch" type="text" placeholder="Search name, path, runtime..." />
+            </label>
+            <label>
+              Local Status
+              <select id="myBotsActiveFilter">
+                <option value="all">All</option>
+                <option value="active">Active Only</option>
+                <option value="inactive">Inactive Only</option>
+              </select>
+            </label>
+            <button id="refreshLocalBotsBtn" class="button tiny ghost" type="button">Refresh Local Scan</button>
+          </div>
+          <p id="myBotsStatus" class="status-line">Enter identity details for purchase inventory, or leave blank to load all local bots on this PC.</p>
+          <div id="myBotsList" class="market-grid"></div>
+        </section>
+
+        <section class="card marketplace">
+          <h2>Customer Purchase Portfolio</h2>
+          <p class="meta-line">Includes paid ranks, roles, buyout plans, build plans, and custom bot purchases.</p>
+          <p id="portfolioStatus" class="status-line">Load inventory to view full purchase portfolio.</p>
+          <div id="portfolioSummary" class="kpi-grid commerce-kpis"></div>
+          <div id="portfolioList" class="market-grid"></div>
+        </section>
+      </section>
+
+      <section id="buildLibraryScreen" class="screen">
+        <section class="card screen-hero hero-library">
+          <div class="hero-copy-block">
+            <div class="hero-meta-row">
+              <span class="hero-chip">Architectures</span>
+              <span class="hero-chip">Modules</span>
+              <span class="hero-chip">Artifacts</span>
+            </div>
+            <h2>Build Intelligence</h2>
+            <p>Inspect architectures, module systems, integrations, and final delivery artifacts per package.</p>
+          </div>
+          <div class="hero-seal-wrap" aria-hidden="true">
+            <img class="hero-seal" src="/assets/trh-logo.svg" alt="" />
+            <span class="hero-grid-tag">PACKAGE BLUEPRINTS</span>
+          </div>
+        </section>
+
+        <section class="card marketplace">
+          <h2>Bot Build Library</h2>
+          <p class="meta-line">Complete visibility into what is built for each bot package: architecture, modules, integrations, and delivery artifacts.</p>
+          <div id="buildLibraryRows" class="market-grid"></div>
+        </section>
+      </section>
+
+      <div id="botScreensMount"></div>
+
+      <!-- ═══ EMERGENCY CONTROL SCREEN ═══════════════════════════════════════ -->
+      <section id="emergencyScreen" class="screen card emergency-screen">
+
+        <!-- Active Lockout Banner -->
+        <div id="emergencyLockoutBanner" class="emergency-lockout-banner" hidden>
+          <span class="emergency-banner-icon">&#x1F6A8;</span>
+          <span id="emergencyBannerText">SYSTEM LOCKOUT ACTIVE</span>
+          <span id="emergencyBannerLevel" class="emergency-level-badge"></span>
+          <span id="emergencyBannerSince" class="emergency-banner-since"></span>
+        </div>
+
+        <section class="card screen-hero hero-emergency">
+          <div class="hero-copy-block">
+            <div class="hero-meta-row">
+              <span class="hero-chip">Owner Only</span>
+              <span class="hero-chip">Emergency Controls</span>
+              <span class="hero-chip">Blacklist</span>
+            </div>
+            <h2>Emergency System Control</h2>
+            <p>Master kill switch and lockout management for the entire TRH Development ecosystem.</p>
+          </div>
+          <div class="hero-seal-wrap" aria-hidden="true">
+            <img class="hero-seal" src="/assets/trh-logo.svg" alt="" />
+            <span class="hero-grid-tag">SYSTEM ENFORCEMENT</span>
+          </div>
+        </section>
+
+        <!-- Credentials Section -->
+        <section class="card emergency-credentials-card">
+          <h3>Emergency Authentication</h3>
+          <p class="meta-line">Both fields required to activate or restore lockout.</p>
+          <div class="emergency-cred-fields">
+            <label>Owner Password
+              <input id="emergencyOwnerPasswordInput" type="password" class="emergency-input" placeholder="Owner Control Password" autocomplete="current-password" />
+            </label>
+            <label>Recovery Key
+              <input id="emergencyRecoveryKeyInput" type="password" class="emergency-input" placeholder="EMERGENCY_RECOVERY_KEY (optional if not set)" autocomplete="off" />
+            </label>
+          </div>
+          <label class="emergency-silent-row">
+            <input id="emergencySilentModeToggle" type="checkbox" />
+            <span>Silent Mode — suppress push notifications and audit log entries</span>
+          </label>
+        </section>
+
+        <!-- Lockout Level Buttons -->
+        <section class="card emergency-action-card">
+          <h3>Activate Emergency Lockout</h3>
+          <p class="meta-line warning-text">Warning: these actions immediately block all non-owner users.</p>
+          <div class="emergency-btn-row">
+            <button id="emergencyLockoutBtn" class="button emergency-btn emergency-btn-lockout" title="Block all operator access, purge sessions, kick WebSocket clients">
+              &#x1F512; LOCKOUT
+              <span class="emergency-btn-sub">Session purge + API block</span>
+            </button>
+            <button id="emergencyShutdownBtn" class="button emergency-btn emergency-btn-shutdown" title="Lockout + stop all bot processes via PM2">
+              &#x1F534; SHUTDOWN
+              <span class="emergency-btn-sub">Lockout + kill all bots</span>
+            </button>
+            <button id="emergencyNuclearBtn" class="button emergency-btn emergency-btn-nuclear" title="Full shutdown + database write freeze">
+              &#x2622; NUCLEAR
+              <span class="emergency-btn-sub">Shutdown + database freeze</span>
+            </button>
+          </div>
+          <p id="emergencyActionStatus" class="status-line meta-line emergency-status-msg"></p>
+        </section>
+
+        <!-- Restore Section -->
+        <section class="card emergency-restore-card">
+          <h3>Restore Normal Operations</h3>
+          <p class="meta-line">Lift the lockout, restore sessions, and resume all services.</p>
+          <button id="emergencyRestoreBtn" class="button emergency-btn-restore">
+            &#x2705; RESTORE SYSTEM
+          </button>
+          <p id="emergencyRestoreStatus" class="status-line meta-line emergency-status-msg"></p>
+        </section>
+
+        <!-- Current Lockout Status -->
+        <section class="card emergency-status-card">
+          <div class="emergency-status-header">
+            <h3>System Lockout Status</h3>
+            <button id="emergencyRefreshStatusBtn" class="button tiny ghost">Refresh</button>
+          </div>
+          <div id="emergencyStatusDisplay" class="emergency-status-display">
+            <span class="emergency-status-label">Loading...</span>
+          </div>
+        </section>
+
+        <!-- Session Purge -->
+        <section class="card emergency-session-card">
+          <h3>Emergency Session Purge</h3>
+          <p class="meta-line">Immediately invalidate all active operator sessions (does not activate full lockout).</p>
+          <button id="emergencyPurgeSessionsBtn" class="button emergency-btn-warn">
+            &#x1F5D1; Purge All Sessions
+          </button>
+          <p id="emergencySessionStatus" class="status-line meta-line emergency-status-msg"></p>
+        </section>
+
+        <!-- Blacklist Management -->
+        <section class="card emergency-blacklist-card">
+          <h3>Permanent Blacklist Management</h3>
+          <p class="meta-line">Blacklisted entries are blocked regardless of lockout state.</p>
+          <div class="emergency-blacklist-inputs">
+            <select id="emergencyBlacklistType" class="emergency-select" title="Select blacklist entry type" aria-label="Blacklist entry type">
+              <option value="ip">IP Address</option>
+              <option value="discord">Discord ID</option>
+              <option value="session">Session ID</option>
+            </select>
+            <input id="emergencyBlacklistValue" type="text" class="emergency-input" placeholder="Enter value to add or remove" maxlength="200" />
+            <button id="emergencyBlacklistAddBtn" class="button tiny">Add to Blacklist</button>
+            <button id="emergencyBlacklistRemoveBtn" class="button tiny ghost">Remove</button>
+          </div>
+          <p id="emergencyBlacklistStatus" class="status-line meta-line emergency-status-msg-sm"></p>
+          <div id="emergencyBlacklistDisplay" class="emergency-blacklist-display" hidden>
+            <div class="emergency-blacklist-section">
+              <h4>Blocked IPs (<span id="emergencyBlacklistIpCount">0</span>)</h4>
+              <ul id="emergencyBlacklistIpList" class="emergency-blacklist-list"></ul>
+            </div>
+            <div class="emergency-blacklist-section">
+              <h4>Blocked Discord IDs (<span id="emergencyBlacklistDiscordCount">0</span>)</h4>
+              <ul id="emergencyBlacklistDiscordList" class="emergency-blacklist-list"></ul>
+            </div>
+            <div class="emergency-blacklist-section">
+              <h4>Blocked Session IDs (<span id="emergencyBlacklistSessionCount">0</span>)</h4>
+              <ul id="emergencyBlacklistSessionList" class="emergency-blacklist-list"></ul>
+            </div>
+          </div>
+          <button id="emergencyLoadBlacklistBtn" class="button tiny ghost emergency-load-btn">Load Blacklist</button>
+        </section>
+
+        <!-- Abuse Log -->
+        <section class="card emergency-abuse-log-card">
+          <div class="emergency-status-header">
+            <h3>Abuse &amp; Block Log</h3>
+            <button id="emergencyLoadAbuseLogBtn" class="button tiny ghost">Load Log</button>
+          </div>
+          <p class="meta-line">Attempts to access the system during lockout or from blacklisted sources.</p>
+          <ul id="emergencyAbuseLogList" class="emergency-abuse-log"></ul>
+        </section>
+
+      </section><!-- end emergencyScreen -->
+
+      <!-- ═══ USERS SCREEN ═══════════════════════════════════════════════════ -->
+      <section id="usersScreen" class="card screen">
+        <div id="usersLockoutBanner" class="users-lockout-banner" hidden>
+          Only the owner can access this panel. Please authenticate first.
+        </div>
+
+        <!-- Owner auth block -->
+        <section class="card users-auth-card">
+          <h2 class="hero-users">&#x1F6E1; User Tracking &amp; Enforcement</h2>
+          <p class="meta-line">Centralized identity system — track all users, manage blacklists, enforce payment tiers, and block bypass attempts.</p>
+          <div class="cred-row">
+            <label for="usersOwnerPassword">Owner Password</label>
+            <input type="password" id="usersOwnerPassword" autocomplete="current-password" placeholder="Owner password to manage users" />
+          </div>
+        </section>
+
+        <!-- Search & Filters -->
+        <section class="card users-search-card">
+          <div class="users-search-header">
+            <h3>User Registry</h3>
+            <button id="usersRefreshBtn" class="button tiny ghost">&#x21BB; Refresh</button>
+          </div>
+          <div class="users-filter-row">
+            <input type="text" id="usersSearchInput" placeholder="Search Discord ID, username…" class="users-search-input" />
+            <select id="usersTierFilter" title="Filter by tier" aria-label="Filter by tier">
+              <option value="all">All Tiers</option>
+              <option value="free">Free</option>
+              <option value="vip">VIP</option>
+              <option value="pro">Pro</option>
+              <option value="premium">Premium</option>
+            </select>
+            <label class="users-toggle-label"><input type="checkbox" id="usersBlacklistedOnly" /> Blacklisted only</label>
+            <label class="users-toggle-label"><input type="checkbox" id="usersFrozenOnly" /> Frozen only</label>
+            <button id="usersSearchBtn" class="button small">Search</button>
+          </div>
+          <p id="usersSearchStatus" class="status-line meta-line users-status-msg"></p>
+          <div id="usersTableWrap" class="users-table-wrap">
+            <table id="usersTable" class="users-table" hidden>
+              <thead>
+                <tr>
+                  <th>Discord ID</th>
+                  <th>Username</th>
+                  <th>Tier</th>
+                  <th>Status</th>
+                  <th>Commands</th>
+                  <th>Last Seen</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="usersTableBody"></tbody>
+            </table>
+          </div>
+          <div id="usersPagination" class="users-pagination" hidden>
+            <button id="usersPrevBtn" class="button tiny ghost">&#8592; Prev</button>
+            <span id="usersPageLabel" class="users-page-label">Page 1</span>
+            <button id="usersNextBtn" class="button tiny ghost">Next &#8594;</button>
+          </div>
+        </section>
+
+        <!-- User Detail Panel -->
+        <section id="usersDetailSection" class="card users-detail-card" hidden>
+          <div class="users-detail-header">
+            <h3>User Profile</h3>
+            <button id="usersDetailCloseBtn" class="button tiny ghost">&#x2715; Close</button>
+          </div>
+          <div id="usersDetailContent" class="users-detail-content"></div>
+          <div class="users-detail-actions">
+            <button id="usersDetailBlacklistBtn" class="button small users-btn-blacklist">&#x26D4; Blacklist</button>
+            <button id="usersDetailUnblacklistBtn" class="button small users-btn-restore">&#x2705; Remove Blacklist</button>
+            <button id="usersDetailFreezeBtn" class="button small users-btn-freeze">&#x1F9CA; Freeze</button>
+            <button id="usersDetailRestoreBtn" class="button small users-btn-restore">&#x1F7E2; Restore</button>
+          </div>
+          <p id="usersDetailStatus" class="status-line meta-line users-status-msg"></p>
+        </section>
+
+        <!-- Quick Enforcement Commands -->
+        <section class="card users-command-card">
+          <h3>Owner Enforcement Commands</h3>
+          <p class="meta-line">Directly manage any user by Discord ID.</p>
+          <div class="users-cmd-grid">
+
+            <div class="users-cmd-block">
+              <label for="usersCmdDiscordId">Discord User ID</label>
+              <input type="text" id="usersCmdDiscordId" placeholder="e.g. 123456789012345678" maxlength="20" class="users-cmd-input" />
+            </div>
+
+            <div class="users-cmd-block">
+              <label for="usersCmdReason">Reason</label>
+              <select id="usersCmdReason" title="Blacklist reason" aria-label="Blacklist reason">
+                <option value="chargeback">Chargeback</option>
+                <option value="payment_failure">Payment Failure</option>
+                <option value="abuse">Abuse</option>
+                <option value="leak">Leaking Bots</option>
+                <option value="bypass">Bypass Attempt</option>
+                <option value="fraud">Fraud</option>
+                <option value="harassment">Harassment</option>
+                <option value="reselling">Unauthorized Reselling</option>
+                <option value="cracking">Cracking Attempt</option>
+                <option value="tos_violation">TOS Violation</option>
+              </select>
+            </div>
+
+            <div class="users-cmd-block">
+              <label for="usersCmdDetail">Detail (optional)</label>
+              <input type="text" id="usersCmdDetail" placeholder="Additional context" maxlength="300" class="users-cmd-input" />
+            </div>
+
+            <div class="users-cmd-block">
+              <label for="usersCmdTier">Set Tier</label>
+              <select id="usersCmdTier" title="User tier" aria-label="Set user tier">
+                <option value="free">Free</option>
+                <option value="vip">VIP</option>
+                <option value="pro">Pro</option>
+                <option value="premium">Premium</option>
+              </select>
+            </div>
+
+          </div>
+          <div class="users-cmd-buttons">
+            <button id="usersCmdBlacklistBtn" class="button users-btn-blacklist">&#x26D4; Blacklist</button>
+            <button id="usersCmdUnblacklistBtn" class="button users-btn-restore">&#x2705; Remove Blacklist</button>
+            <button id="usersCmdFreezeBtn" class="button users-btn-freeze">&#x1F9CA; Freeze</button>
+            <button id="usersCmdRestoreBtn" class="button users-btn-restore">&#x1F7E2; Restore</button>
+            <button id="usersCmdSetTierBtn" class="button ghost">&#x1F3C6; Set Tier</button>
+          </div>
+          <p id="usersCmdStatus" class="status-line meta-line users-status-msg"></p>
+        </section>
+
+        <!-- Blacklist Registry -->
+        <section class="card users-blacklist-card">
+          <div class="users-search-header">
+            <h3>Active Blacklist Registry</h3>
+            <button id="usersLoadBlacklistBtn" class="button tiny ghost">Load</button>
+          </div>
+          <p class="meta-line">All currently active blacklist entries. Users are downgraded to free tier — not deleted.</p>
+          <ul id="usersBlacklistList" class="users-blacklist-list"></ul>
+          <p id="usersBlacklistStatus" class="status-line meta-line users-status-msg"></p>
+        </section>
+
+        <!-- Activity Log Viewer -->
+        <section class="card users-log-card">
+          <div class="users-search-header">
+            <h3>User Activity Log</h3>
+          </div>
+          <div class="users-log-filter">
+            <input type="text" id="usersLogDiscordId" placeholder="Discord User ID" maxlength="20" class="users-cmd-input" />
+            <button id="usersLoadLogBtn" class="button small">Load Logs</button>
+          </div>
+          <ul id="usersLogList" class="users-log-list"></ul>
+          <p id="usersLogStatus" class="status-line meta-line users-status-msg"></p>
+        </section>
+
+      </section><!-- end usersScreen -->
+
+        </div>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>

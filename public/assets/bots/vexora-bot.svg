@@ -1,0 +1,21 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="40%" r="60%"><stop offset="0%" stop-color="#1e3a8a"/><stop offset="100%" stop-color="#03061f"/></radialGradient>
+    <linearGradient id="vgrad" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#e0e7ff"/><stop offset="100%" stop-color="#6366f1"/></linearGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <circle cx="60" cy="60" r="60" fill="url(#bg)"/>
+  <!-- outer ring -->
+  <circle cx="60" cy="60" r="50" fill="none" stroke="#4f46e5" stroke-width="1" opacity="0.5"/>
+  <!-- V main shape - thick arms -->
+  <polygon points="18,22 42,22 60,68 78,22 102,22 72,90 48,90" fill="url(#vgrad)" opacity="0.12"/>
+  <!-- V stroke outline thick -->
+  <polyline points="23,26 60,82 97,26" fill="none" stroke="url(#vgrad)" stroke-width="8" stroke-linejoin="round" stroke-linecap="round" filter="url(#glow)"/>
+  <!-- V inner bright core -->
+  <polyline points="29,26 60,73 91,26" fill="none" stroke="#c7d2fe" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+  <!-- center diamond accent -->
+  <polygon points="60,58 65,66 60,74 55,66" fill="#6366f1" opacity="0.7"/>
+  <!-- VEXORA label -->
+  <rect x="24" y="92" width="72" height="17" rx="8.5" fill="#03061f" stroke="#6366f1" stroke-width="1"/>
+  <text x="60" y="104" font-family="monospace" font-size="10" font-weight="bold" fill="#c7d2fe" text-anchor="middle" letter-spacing="3">VEXORA</text>
+</svg>

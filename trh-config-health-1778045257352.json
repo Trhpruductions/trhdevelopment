@@ -1,0 +1,51 @@
+{
+  "ok": true,
+  "generatedAt": "2026-05-06T05:27:37.321Z",
+  "config": {
+    "checks": [
+      {
+        "key": "panel_admin_password",
+        "label": "Operator Password",
+        "status": "ok",
+        "detail": "Configured"
+      },
+      {
+        "key": "owner_control_password",
+        "label": "Owner Password",
+        "status": "ok",
+        "detail": "Configured"
+      },
+      {
+        "key": "session_secret",
+        "label": "Session Secret",
+        "status": "warn",
+        "detail": "Weak or default value"
+      },
+      {
+        "key": "session_store",
+        "label": "Session Store Access",
+        "status": "ok",
+        "detail": "Writable"
+      },
+      {
+        "key": "discord_oauth",
+        "label": "Discord OAuth",
+        "status": "warn",
+        "detail": "Fallback mode"
+      },
+      {
+        "key": "stripe_mode",
+        "label": "Stripe Payments",
+        "status": "warn",
+        "detail": "Mock-only"
+      }
+    ],
+    "summary": "attention",
+    "flags": {
+      "production": false,
+      "discordOauthConfigured": false,
+      "stripeConfigured": false,
+      "devDiscordFallbackEnabled": true
+    }
+  }
+}

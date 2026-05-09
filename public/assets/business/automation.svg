@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#1a0600"/><stop offset="100%" stop-color="#300e00"/></linearGradient>
+    <linearGradient id="acc" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#ff6600"/><stop offset="100%" stop-color="#ffaa44"/></linearGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="400" height="400" rx="24" fill="url(#bg)"/>
+  <circle cx="200" cy="180" r="130" fill="none" stroke="#ff6600" stroke-width="1.5" opacity="0.25"/>
+  <!-- Gear outer -->
+  <path d="M200,70 L215,95 L240,82 L240,108 L266,116 L258,140 L280,156 L265,176 L274,202 L250,210 L248,236 L224,236 L214,260 L192,252 L175,272 L158,254 L136,262 L128,238 L104,230 L110,206 L90,188 L108,172 L100,148 L126,142 L128,118 L152,112 L155,88 L180,90 Z" fill="#1e0c04" stroke="#ff6600" stroke-width="2" filter="url(#glow)"/>
+  <!-- Gear inner -->
+  <circle cx="200" cy="180" r="45" fill="#1e0c04" stroke="#ffaa44" stroke-width="1.5"/>
+  <circle cx="200" cy="180" r="20" fill="url(#acc)" opacity="0.8" filter="url(#glow)"/>
+  <!-- lightning in center -->
+  <polygon points="204,162 195,182 202,182 196,200 209,178 201,178" fill="#fff" opacity="0.9"/>
+  <text x="200" y="340" fill="url(#acc)" font-family="Space Grotesk, Arial" font-size="28" font-weight="800" text-anchor="middle">AUTOMATION</text>
+  <text x="200" y="368" fill="#804020" font-family="IBM Plex Mono, monospace" font-size="14" text-anchor="middle" letter-spacing="2">TRH</text>
+</svg>

@@ -1,0 +1,16 @@
+{
+  "name": "TRH Bot Controls",
+  "short_name": "TRH Control",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f1619",
+  "theme_color": "#0f1619",
+  "icons": [
+    {
+      "src": "/assets/trh-logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="50%" r="55%"><stop offset="0%" stop-color="#14532d"/><stop offset="100%" stop-color="#031a0d"/></radialGradient>
+    <linearGradient id="visor" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#6ee7b7"/><stop offset="100%" stop-color="#059669"/></linearGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="2" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <circle cx="60" cy="60" r="60" fill="url(#bg)"/>
+  <!-- helmet shell -->
+  <ellipse cx="60" cy="54" rx="28" ry="30" fill="#052e16"/>
+  <ellipse cx="60" cy="54" rx="24" ry="26" fill="#0a1f12"/>
+  <!-- visor window -->
+  <ellipse cx="60" cy="50" rx="18" ry="14" fill="url(#visor)" opacity="0.25"/>
+  <ellipse cx="60" cy="50" rx="18" ry="14" fill="none" stroke="#4ade80" stroke-width="1.5" filter="url(#glow)"/>
+  <!-- pine tree silhouette inside visor -->
+  <polygon points="60,36 68,50 64,50 70,62 50,62 56,50 52,50" fill="#4ade80" opacity="0.9"/>
+  <rect x="57" y="62" width="6" height="5" fill="#166534"/>
+  <!-- scan lines -->
+  <line x1="43" y1="44" x2="77" y2="44" stroke="#4ade80" stroke-width="0.75" opacity="0.4"/>
+  <line x1="43" y1="50" x2="77" y2="50" stroke="#4ade80" stroke-width="0.75" opacity="0.4"/>
+  <line x1="43" y1="56" x2="77" y2="56" stroke="#4ade80" stroke-width="0.75" opacity="0.4"/>
+  <!-- helmet ear guards -->
+  <rect x="29" y="44" width="8" height="18" rx="4" fill="#14532d"/>
+  <rect x="83" y="44" width="8" height="18" rx="4" fill="#14532d"/>
+  <!-- chin bar -->
+  <rect x="40" y="78" width="40" height="10" rx="5" fill="#14532d" opacity="0.9"/>
+  <!-- badge -->
+  <rect x="38" y="91" width="44" height="16" rx="8" fill="#052e16" stroke="#4ade80" stroke-width="1"/>
+  <text x="60" y="103" font-family="monospace" font-size="9" font-weight="bold" fill="#6ee7b7" text-anchor="middle" letter-spacing="1">LONGPINE</text>
+</svg>

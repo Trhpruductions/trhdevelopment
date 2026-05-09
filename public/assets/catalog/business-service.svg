@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#060e22"/><stop offset="100%" stop-color="#0e1e44"/></linearGradient>
+    <linearGradient id="acc" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#4080ff"/><stop offset="100%" stop-color="#80aaff"/></linearGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="7" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="800" height="480" fill="url(#bg)"/>
+  <circle cx="660" cy="80" r="155" fill="#4080ff" opacity="0.07"/>
+  <rect x="565" y="192" width="190" height="135" rx="14" fill="#0a1a38" stroke="#4080ff" stroke-width="2" filter="url(#glow)"/>
+  <path d="M610,192 L610,171 C610,160 622,152 635,152 L730,152 C743,152 755,160 755,171 L755,192" fill="none" stroke="#4080ff" stroke-width="2"/>
+  <rect x="565" y="244" width="190" height="8" rx="4" fill="#4080ff" opacity="0.3"/>
+  <rect x="643" y="238" width="34" height="22" rx="6" fill="#0a1a38" stroke="#4080ff" stroke-width="1.5"/>
+  <text x="70" y="195" fill="#b0c8f0" font-family="Space Grotesk, Arial" font-size="46" font-weight="800">BUSINESS</text>
+  <text x="70" y="265" fill="url(#acc)" font-family="Space Grotesk, Arial" font-size="64" font-weight="800">SERVICE</text>
+  <rect x="70" y="286" width="225" height="4" rx="2" fill="url(#acc)" opacity="0.6"/>
+  <text x="70" y="328" fill="#5070c0" font-family="IBM Plex Mono, monospace" font-size="19" letter-spacing="3">MANAGED DELIVERY</text>
+  <text x="70" y="363" fill="#2a4080" font-family="IBM Plex Mono, monospace" font-size="14" letter-spacing="2">TRH CATALOG</text>
+</svg>

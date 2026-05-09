@@ -1,0 +1,2 @@
+inquiryId,companyName,contactName,email,serviceCategory,budgetUsd,status,createdAt,stageEnteredAt,stageAgeHours,totalAgeHours,slaHours,isBreached,overdueHours,simulated,stageNote
+"inq-1778030417078-59a3e262","Acme Corp","Jane Ops","jane@acme.com","bots","4500","quoted","2026-05-06T01:20:17.078Z","2026-05-01T00:23:36.087Z","122.06","1.11","120","true","2.06","true","simulated breach"

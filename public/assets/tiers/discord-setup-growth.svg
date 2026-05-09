@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#041a10"/><stop offset="100%" stop-color="#0a2a18"/></linearGradient>
+    <linearGradient id="acc" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#00e5a0"/><stop offset="100%" stop-color="#80ffcc"/></linearGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="7" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="800" height="480" fill="url(#bg)"/>
+  <circle cx="660" cy="80" r="160" fill="#00e5a0" opacity="0.07"/>
+  <path d="M580,190 C580,165 600,145 630,145 L690,145 C720,145 740,165 740,190 L740,260 C740,285 720,305 690,305 L660,305 L640,330 L620,305 L630,305 C600,305 580,285 580,260 Z" fill="#062818" stroke="#00e5a0" stroke-width="2" filter="url(#glow)"/>
+  <circle cx="625" cy="222" r="14" fill="url(#acc)" opacity="0.9"/>
+  <circle cx="695" cy="222" r="14" fill="url(#acc)" opacity="0.9"/>
+  <text x="70" y="195" fill="#a0ffe0" font-family="Space Grotesk, Arial" font-size="46" font-weight="800">DISCORD</text>
+  <text x="70" y="255" fill="url(#acc)" font-family="Space Grotesk, Arial" font-size="64" font-weight="800">SETUP</text>
+  <rect x="70" y="275" width="165" height="4" rx="2" fill="url(#acc)" opacity="0.6"/>
+  <text x="70" y="318" fill="#40c888" font-family="IBM Plex Mono, monospace" font-size="19" letter-spacing="3">GROWTH TIER</text>
+  <text x="70" y="354" fill="#1a7850" font-family="IBM Plex Mono, monospace" font-size="14" letter-spacing="2">EVENTS + ANALYTICS</text>
+</svg>

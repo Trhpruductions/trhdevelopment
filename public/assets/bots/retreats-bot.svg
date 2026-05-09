@@ -1,0 +1,29 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="50%" r="55%"><stop offset="0%" stop-color="#2d0045"/><stop offset="100%" stop-color="#0a0015"/></radialGradient>
+    <radialGradient id="skull" cx="50%" cy="45%" r="52%"><stop offset="0%" stop-color="#e879f9"/><stop offset="60%" stop-color="#a855f7"/><stop offset="100%" stop-color="#7e22ce"/></radialGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="2.5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <circle cx="60" cy="60" r="60" fill="url(#bg)"/>
+  <!-- skull dome -->
+  <ellipse cx="60" cy="50" rx="26" ry="24" fill="url(#skull)" filter="url(#glow)"/>
+  <!-- cheekbones -->
+  <rect x="34" y="60" width="52" height="14" rx="6" fill="#c026d3" opacity="0.85"/>
+  <!-- eye sockets dark -->
+  <ellipse cx="50" cy="49" rx="7" ry="8" fill="#0a0015"/>
+  <ellipse cx="70" cy="49" rx="7" ry="8" fill="#0a0015"/>
+  <!-- glowing eye pupils -->
+  <ellipse cx="50" cy="49" rx="4.5" ry="5.5" fill="#f0abfc" filter="url(#glow)"/>
+  <ellipse cx="70" cy="49" rx="4.5" ry="5.5" fill="#f0abfc" filter="url(#glow)"/>
+  <!-- nose cavity -->
+  <path d="M57 59 Q60 63 63 59 L63 61 Q60 65.5 57 61Z" fill="#0a0015"/>
+  <!-- jaw/teeth strip -->
+  <rect x="40" y="72" width="40" height="9" rx="3" fill="#7e22ce" opacity="0.9"/>
+  <rect x="44" y="72" width="5" height="9" rx="1" fill="#e879f9" opacity="0.6"/>
+  <rect x="51" y="72" width="5" height="9" rx="1" fill="#e879f9" opacity="0.6"/>
+  <rect x="58" y="72" width="5" height="9" rx="1" fill="#e879f9" opacity="0.6"/>
+  <rect x="65" y="72" width="5" height="9" rx="1" fill="#e879f9" opacity="0.6"/>
+  <!-- RB badge -->
+  <rect x="42" y="88" width="36" height="16" rx="8" fill="#7e22ce" opacity="0.9" stroke="#e879f9" stroke-width="1"/>
+  <text x="60" y="100" font-family="monospace" font-size="9" font-weight="bold" fill="#f0abfc" text-anchor="middle" letter-spacing="2">RETREATS</text>
+</svg>

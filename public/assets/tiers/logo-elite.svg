@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#120c00"/><stop offset="100%" stop-color="#2a1e00"/></linearGradient>
+    <linearGradient id="acc" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#ffb300"/><stop offset="100%" stop-color="#ffe066"/></linearGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="9" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="800" height="480" fill="url(#bg)"/>
+  <circle cx="660" cy="80" r="180" fill="#ffb300" opacity="0.06"/>
+  <!-- Crown icon -->
+  <polygon points="570,280 570,180 610,230 640,155 670,230 710,180 710,280" fill="#2a1400" stroke="#ffb300" stroke-width="2.5" filter="url(#glow)"/>
+  <rect x="560" y="280" width="160" height="20" rx="6" fill="url(#acc)" opacity="0.9" filter="url(#glow)"/>
+  <circle cx="570" cy="175" r="10" fill="url(#acc)" filter="url(#glow)"/>
+  <circle cx="640" cy="150" r="12" fill="url(#acc)" filter="url(#glow)"/>
+  <circle cx="710" cy="175" r="10" fill="url(#acc)" filter="url(#glow)"/>
+  <text x="70" y="205" fill="#ffe8a0" font-family="Space Grotesk, Arial" font-size="64" font-weight="800">LOGO</text>
+  <text x="70" y="278" fill="url(#acc)" font-family="Space Grotesk, Arial" font-size="64" font-weight="800">ELITE</text>
+  <rect x="70" y="300" width="170" height="4" rx="2" fill="url(#acc)" opacity="0.7"/>
+  <text x="70" y="342" fill="#c8a040" font-family="IBM Plex Mono, monospace" font-size="19" letter-spacing="3">FLAGSHIP IDENTITY</text>
+  <text x="70" y="378" fill="#806020" font-family="IBM Plex Mono, monospace" font-size="14" letter-spacing="2">TRH LOGO SERVICE</text>
+</svg>

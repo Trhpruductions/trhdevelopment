@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#120c00"/><stop offset="100%" stop-color="#2a1e00"/></linearGradient>
+    <linearGradient id="acc" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#ffb300"/><stop offset="100%" stop-color="#ffe066"/></linearGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="8" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="800" height="480" fill="url(#bg)"/>
+  <circle cx="660" cy="80" r="180" fill="#ffb300" opacity="0.06"/>
+  <rect x="575" y="130" width="180" height="220" rx="14" fill="#281400" stroke="#ffb300" stroke-width="2.5" filter="url(#glow)"/>
+  <rect x="595" y="162" width="140" height="10" rx="5" fill="url(#acc)" opacity="0.9"/>
+  <rect x="595" y="188" width="110" height="8" rx="4" fill="#ffb300" opacity="0.5"/>
+  <rect x="595" y="210" width="130" height="8" rx="4" fill="#ffb300" opacity="0.4"/>
+  <rect x="595" y="232" width="95" height="8" rx="4" fill="#ffb300" opacity="0.35"/>
+  <rect x="595" y="268" width="140" height="10" rx="5" fill="#ffb300" opacity="0.6"/>
+  <rect x="595" y="290" width="115" height="8" rx="4" fill="#ffb300" opacity="0.4"/>
+  <rect x="595" y="312" width="105" height="8" rx="4" fill="#ffb300" opacity="0.3"/>
+  <polygon points="665,140 673,163 697,163 678,177 685,200 665,186 645,200 652,177 633,163 657,163" fill="url(#acc)" filter="url(#glow)" transform="translate(0,-10)"/>
+  <text x="70" y="195" fill="#ffe8a0" font-family="Space Grotesk, Arial" font-size="46" font-weight="800">TEMPLATE</text>
+  <text x="70" y="265" fill="url(#acc)" font-family="Space Grotesk, Arial" font-size="56" font-weight="800">PREMIUM</text>
+  <rect x="70" y="284" width="185" height="4" rx="2" fill="url(#acc)" opacity="0.7"/>
+  <text x="70" y="326" fill="#c8a040" font-family="IBM Plex Mono, monospace" font-size="19" letter-spacing="3">LUXURY BUILD</text>
+  <text x="70" y="361" fill="#806020" font-family="IBM Plex Mono, monospace" font-size="14" letter-spacing="2">DISCORD TEMPLATE</text>
+</svg>

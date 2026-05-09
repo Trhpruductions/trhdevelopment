@@ -1,0 +1,20 @@
+node_modules/
+.env
+npm-debug.log*
+
+# Build outputs
+dist/
+dist-release-*/
+
+# Electron builder temporary files
+*.blockmap
+builder-debug.yml
+builder-effective-config.yaml
+
+# Runtime-generated control panel state
+data/panel-state.json
+data/commerce-state.json
+data/panel-server.pid
+data/session-test-sid.txt
+data/sessions/
+data/startup-*.log

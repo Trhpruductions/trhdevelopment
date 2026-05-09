@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#040820"/><stop offset="100%" stop-color="#0a1040"/></linearGradient>
+    <linearGradient id="acc" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#4060ff"/><stop offset="100%" stop-color="#8090ff"/></linearGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="400" height="400" rx="24" fill="url(#bg)"/>
+  <!-- Monitor frame -->
+  <rect x="60" y="80" width="280" height="180" rx="14" fill="#080e2e" stroke="#4060ff" stroke-width="2" filter="url(#glow)"/>
+  <rect x="80" y="100" width="240" height="140" rx="8" fill="#050a1a"/>
+  <!-- Chart bars inside -->
+  <rect x="100" y="185" width="28" height="45" rx="4" fill="#4060ff" opacity="0.7"/>
+  <rect x="136" y="165" width="28" height="65" rx="4" fill="#6070ff" opacity="0.8"/>
+  <rect x="172" y="145" width="28" height="85" rx="4" fill="url(#acc)" opacity="0.9" filter="url(#glow)"/>
+  <rect x="208" y="160" width="28" height="70" rx="4" fill="#6070ff" opacity="0.8"/>
+  <rect x="244" y="175" width="28" height="55" rx="4" fill="#4060ff" opacity="0.7"/>
+  <!-- line graph overlay -->
+  <polyline points="100,195 136,175 172,155 208,168 244,180 280,162" fill="none" stroke="#a0b0ff" stroke-width="2" opacity="0.5"/>
+  <!-- stand -->
+  <rect x="178" y="260" width="44" height="20" rx="4" fill="#080e2e" stroke="#4060ff" stroke-width="1.5"/>
+  <rect x="148" y="278" width="104" height="14" rx="6" fill="#080e2e" stroke="#4060ff" stroke-width="1.5"/>
+  <text x="200" y="340" fill="url(#acc)" font-family="Space Grotesk, Arial" font-size="24" font-weight="800" text-anchor="middle">DASHBOARDS</text>
+  <text x="200" y="368" fill="#2030a0" font-family="IBM Plex Mono, monospace" font-size="14" text-anchor="middle" letter-spacing="2">TRH</text>
+</svg>

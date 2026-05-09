@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#020c02"/><stop offset="100%" stop-color="#061806"/></linearGradient>
+    <linearGradient id="acc" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#00ff88"/><stop offset="100%" stop-color="#66ffaa"/></linearGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="400" height="400" rx="24" fill="url(#bg)"/>
+  <!-- Terminal window -->
+  <rect x="60" y="80" width="280" height="200" rx="14" fill="#040e04" stroke="#00ff88" stroke-width="1.5" filter="url(#glow)"/>
+  <rect x="60" y="80" width="280" height="34" rx="14" fill="#062006"/>
+  <rect x="60" y="100" width="280" height="14" fill="#062006"/>
+  <circle cx="86" cy="97" r="7" fill="#ff4444" opacity="0.8"/>
+  <circle cx="108" cy="97" r="7" fill="#ffaa00" opacity="0.8"/>
+  <circle cx="130" cy="97" r="7" fill="#00cc44" opacity="0.8"/>
+  <!-- Code lines -->
+  <text x="82" y="142" fill="#00ff88" font-family="IBM Plex Mono, monospace" font-size="16" opacity="0.9">$ ./run-bot.sh</text>
+  <text x="82" y="164" fill="#66ffaa" font-family="IBM Plex Mono, monospace" font-size="14" opacity="0.7">  Deploying...</text>
+  <text x="82" y="186" fill="#00cc66" font-family="IBM Plex Mono, monospace" font-size="14" opacity="0.6">  Modules: OK</text>
+  <text x="82" y="208" fill="#00ff88" font-family="IBM Plex Mono, monospace" font-size="14" opacity="0.8">  Status: LIVE ?</text>
+  <text x="82" y="232" fill="#00ff88" font-family="IBM Plex Mono, monospace" font-size="16" filter="url(#glow)">?</text>
+  <text x="200" y="340" fill="url(#acc)" font-family="Space Grotesk, Arial" font-size="28" font-weight="800" text-anchor="middle">SCRIPTS</text>
+  <text x="200" y="368" fill="#006622" font-family="IBM Plex Mono, monospace" font-size="14" text-anchor="middle" letter-spacing="2">TRH</text>
+</svg>

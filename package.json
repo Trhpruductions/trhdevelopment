@@ -1,0 +1,99 @@
+{
+  "name": "trh-development-control-panel",
+  "version": "1.0.0",
+  "private": true,
+  "description": "TRH Development Discord Bot Control Panel",
+  "author": "TRH Development",
+  "main": "electron/main.js",
+  "scripts": {
+    "dev": "node server.js",
+    "start": "node server.js",
+    "electron:dev": "electron .",
+    "icons": "node scripts/generate-icons.js",
+    "electron:build": "npm run icons && electron-builder build --win --x64",
+    "verify:syntax": "node --check server.js && node --check public/app.js",
+    "verify:assets": "node scripts/verify-assets.js",
+    "verify:coverage": "node scripts/verify-image-coverage.js",
+    "verify": "npm run verify:syntax && npm run verify:assets && npm run verify:coverage",
+    "release:build": "powershell -ExecutionPolicy Bypass -File ./scripts/release-build.ps1",
+    "release:publish": "powershell -ExecutionPolicy Bypass -File ./scripts/publish-release.ps1",
+    "start:panel": "powershell -ExecutionPolicy Bypass -File ./scripts/start-panel.ps1",
+    "start:panel:noenv": "powershell -ExecutionPolicy Bypass -File ./scripts/start-panel.ps1 -NoEnv"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "dotenv": "^17.4.2",
+    "express": "^4.21.2",
+    "express-session": "^1.18.1",
+    "session-file-store": "^1.5.0",
+    "stripe": "^16.12.0",
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "@resvg/resvg-js": "^2.6.2",
+    "electron": "^42.0.0",
+    "electron-builder": "^26.8.1",
+    "png-to-ico": "^2.1.8"
+  },
+  "build": {
+    "appId": "com.trhdevelopment.controlpanel",
+    "productName": "TRH Development Control Panel",
+    "copyright": "Copyright © 2025 TRH Development",
+    "asar": true,
+    "asarUnpack": [
+      "**/*.node"
+    ],
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "files": [
+      "electron/**/*",
+      "public/**/*",
+      "server.js",
+      "package.json",
+      "data/commerce-state.json",
+      "data/panel-state.json",
+      "!data/sessions/**/*",
+      "!data/panel-server.pid",
+      "!data/session-test-sid.txt",
+      "!node_modules/.cache/**/*",
+      "!dist/**/*",
+      "!scripts/**/*",
+      "!bot-connector/**/*",
+      "!*.md",
+      "!*.csv",
+      "!*.json.bak"
+    ],
+    "extraFiles": [
+      {
+        "from": "data",
+        "to": "resources/app/data",
+        "filter": [
+          "commerce-state.json",
+          "panel-state.json"
+        ]
+      }
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "electron/icon.ico",
+      "requestedExecutionLevel": "asInvoker"
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "TRH Control Panel",
+      "deleteAppDataOnUninstall": false
+    }
+  }
+}

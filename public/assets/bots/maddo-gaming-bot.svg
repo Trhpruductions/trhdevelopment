@@ -1,0 +1,33 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="50%" r="55%"><stop offset="0%" stop-color="#4c0080"/><stop offset="100%" stop-color="#0d001a"/></radialGradient>
+    <linearGradient id="head" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#a21caf"/><stop offset="100%" stop-color="#6d28d9"/></linearGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="2.5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <circle cx="60" cy="60" r="60" fill="url(#bg)"/>
+  <!-- antenna -->
+  <line x1="60" y1="18" x2="60" y2="29" stroke="#f472b6" stroke-width="2.5"/>
+  <circle cx="60" cy="15" r="5" fill="#f43f5e" filter="url(#glow)"/>
+  <!-- robot head box -->
+  <rect x="32" y="28" width="56" height="44" rx="10" fill="url(#head)"/>
+  <!-- face panel inset -->
+  <rect x="36" y="32" width="48" height="36" rx="7" fill="#1a0030"/>
+  <!-- eye LED bars -->
+  <rect x="40" y="41" width="14" height="8" rx="4" fill="#f43f5e" filter="url(#glow)"/>
+  <rect x="66" y="41" width="14" height="8" rx="4" fill="#f43f5e" filter="url(#glow)"/>
+  <!-- mouth LED strip -->
+  <rect x="40" y="56" width="40" height="6" rx="3" fill="#f472b6" opacity="0.8"/>
+  <rect x="42" y="57" width="6" height="4" rx="1" fill="#fda4af"/>
+  <rect x="51" y="57" width="6" height="4" rx="1" fill="#fda4af"/>
+  <rect x="60" y="57" width="6" height="4" rx="1" fill="#fda4af"/>
+  <rect x="69" y="57" width="6" height="4" rx="1" fill="#fda4af"/>
+  <!-- ear receivers -->
+  <rect x="22" y="36" width="10" height="16" rx="4" fill="#6d28d9"/>
+  <rect x="88" y="36" width="10" height="16" rx="4" fill="#6d28d9"/>
+  <!-- neck + body -->
+  <rect x="50" y="72" width="20" height="8" rx="3" fill="#4c0080"/>
+  <rect x="38" y="79" width="44" height="14" rx="8" fill="url(#head)"/>
+  <!-- badge -->
+  <rect x="30" y="95" width="60" height="16" rx="8" fill="#0d001a" stroke="#f472b6" stroke-width="1"/>
+  <text x="60" y="107" font-family="monospace" font-size="8" font-weight="bold" fill="#f9a8d4" text-anchor="middle" letter-spacing="1">MADDO GAMING</text>
+</svg>

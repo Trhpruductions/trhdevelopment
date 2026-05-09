@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#080e28"/><stop offset="100%" stop-color="#131d4a"/></linearGradient>
+    <linearGradient id="acc" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#5865f2"/><stop offset="100%" stop-color="#99aaff"/></linearGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="7" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="800" height="480" fill="url(#bg)"/>
+  <circle cx="660" cy="80" r="160" fill="#5865f2" opacity="0.08"/>
+  <path d="M575,185 C575,158 596,138 628,138 L692,138 C724,138 745,158 745,185 L745,265 C745,292 724,312 692,312 L660,312 L638,338 L616,312 L628,312 C596,312 575,292 575,265 Z" fill="#1a2060" stroke="#5865f2" stroke-width="2" filter="url(#glow)"/>
+  <circle cx="621" cy="225" r="15" fill="url(#acc)" opacity="0.9"/>
+  <circle cx="699" cy="225" r="15" fill="url(#acc)" opacity="0.9"/>
+  <circle cx="740" cy="143" r="22" fill="#1a2060" stroke="#5865f2" stroke-width="1.5"/>
+  <circle cx="740" cy="143" r="11" fill="none" stroke="#99aaff" stroke-width="2"/>
+  <circle cx="740" cy="143" r="4" fill="url(#acc)"/>
+  <text x="70" y="195" fill="#c8d0ff" font-family="Space Grotesk, Arial" font-size="46" font-weight="800">DISCORD</text>
+  <text x="70" y="265" fill="url(#acc)" font-family="Space Grotesk, Arial" font-size="64" font-weight="800">SETUP</text>
+  <rect x="70" y="286" width="185" height="4" rx="2" fill="url(#acc)" opacity="0.6"/>
+  <text x="70" y="328" fill="#8890d8" font-family="IBM Plex Mono, monospace" font-size="19" letter-spacing="3">FULL BUILDOUT</text>
+  <text x="70" y="363" fill="#4a5090" font-family="IBM Plex Mono, monospace" font-size="14" letter-spacing="2">TRH CATALOG</text>
+</svg>

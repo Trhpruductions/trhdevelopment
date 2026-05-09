@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#041828"/><stop offset="100%" stop-color="#082838"/></linearGradient>
+    <linearGradient id="acc" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#00c8ff"/><stop offset="100%" stop-color="#80e8ff"/></linearGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="7" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="800" height="480" fill="url(#bg)"/>
+  <circle cx="660" cy="80" r="155" fill="#00c8ff" opacity="0.07"/>
+  <path d="M592,192 C592,160 618,142 655,142 C692,142 718,160 718,192" fill="none" stroke="#00c8ff" stroke-width="6" stroke-linecap="round" filter="url(#glow)"/>
+  <polygon points="718,182 730,204 708,207" fill="url(#acc)"/>
+  <path d="M718,282 C718,314 692,332 655,332 C618,332 592,314 592,282" fill="none" stroke="#00c8ff" stroke-width="6" stroke-linecap="round" filter="url(#glow)"/>
+  <polygon points="592,292 580,270 602,267" fill="url(#acc)"/>
+  <rect x="618" y="192" width="74" height="90" rx="10" fill="#082838" stroke="#00c8ff" stroke-width="1.5"/>
+  <text x="641" y="249" fill="url(#acc)" font-family="Space Grotesk, Arial" font-size="32" font-weight="800">8</text>
+  <text x="70" y="188" fill="#a0e0f8" font-family="Space Grotesk, Arial" font-size="46" font-weight="800">RECURRING</text>
+  <text x="70" y="258" fill="url(#acc)" font-family="Space Grotesk, Arial" font-size="56" font-weight="800">SUBSCRIPTION</text>
+  <rect x="70" y="276" width="320" height="4" rx="2" fill="url(#acc)" opacity="0.6"/>
+  <text x="70" y="318" fill="#20a0c8" font-family="IBM Plex Mono, monospace" font-size="19" letter-spacing="3">MONTHLY PLANS</text>
+  <text x="70" y="353" fill="#0a6888" font-family="IBM Plex Mono, monospace" font-size="14" letter-spacing="2">TRH CATALOG</text>
+</svg>

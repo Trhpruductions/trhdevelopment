@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#041808"/><stop offset="100%" stop-color="#082816"/></linearGradient>
+    <linearGradient id="acc" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#00cc88"/><stop offset="100%" stop-color="#66ffcc"/></linearGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="7" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="800" height="480" fill="url(#bg)"/>
+  <circle cx="660" cy="80" r="155" fill="#00cc88" opacity="0.07"/>
+  <!-- Robot head -->
+  <rect x="600" y="155" width="120" height="100" rx="14" fill="#082818" stroke="#00cc88" stroke-width="2" filter="url(#glow)"/>
+  <rect x="615" y="140" width="90" height="20" rx="8" fill="#082818" stroke="#00cc88" stroke-width="1.5"/>
+  <circle cx="640" cy="198" r="14" fill="#00cc88" opacity="0.2" stroke="#00cc88" stroke-width="1.5"/>
+  <circle cx="680" cy="198" r="14" fill="#00cc88" opacity="0.2" stroke="#00cc88" stroke-width="1.5"/>
+  <circle cx="640" cy="198" r="7" fill="url(#acc)" opacity="0.9"/>
+  <circle cx="680" cy="198" r="7" fill="url(#acc)" opacity="0.9"/>
+  <rect x="625" y="222" width="70" height="10" rx="5" fill="#00cc88" opacity="0.5"/>
+  <rect x="590" y="255" width="20" height="40" rx="8" fill="#082818" stroke="#00cc88" stroke-width="1.5"/>
+  <rect x="710" y="255" width="20" height="40" rx="8" fill="#082818" stroke="#00cc88" stroke-width="1.5"/>
+  <rect x="620" y="255" width="80" height="50" rx="10" fill="#082818" stroke="#00cc88" stroke-width="1.5"/>
+  <!-- wrench overlay -->
+  <path d="M680,150 C690,140 705,138 710,148 L700,158 L695,153 Z" fill="url(#acc)" opacity="0.8"/>
+  <text x="70" y="195" fill="#a0ffd8" font-family="Space Grotesk, Arial" font-size="46" font-weight="800">CUSTOM</text>
+  <text x="70" y="265" fill="url(#acc)" font-family="Space Grotesk, Arial" font-size="64" font-weight="800">BOT</text>
+  <rect x="70" y="286" width="120" height="4" rx="2" fill="url(#acc)" opacity="0.6"/>
+  <text x="70" y="328" fill="#30b878" font-family="IBM Plex Mono, monospace" font-size="19" letter-spacing="3">BUILT TO ORDER</text>
+  <text x="70" y="363" fill="#156840" font-family="IBM Plex Mono, monospace" font-size="14" letter-spacing="2">TRH DEVELOPMENT</text>
+</svg>

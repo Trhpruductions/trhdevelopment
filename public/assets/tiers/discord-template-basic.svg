@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#101828"/><stop offset="100%" stop-color="#1a2840"/></linearGradient>
+    <linearGradient id="acc" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#60a0e0"/><stop offset="100%" stop-color="#a0ccff"/></linearGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="800" height="480" fill="url(#bg)"/>
+  <circle cx="660" cy="80" r="150" fill="#60a0e0" opacity="0.07"/>
+  <!-- Document/template icon -->
+  <rect x="575" y="130" width="180" height="220" rx="14" fill="#0d1c34" stroke="#60a0e0" stroke-width="2" filter="url(#glow)"/>
+  <rect x="595" y="162" width="140" height="10" rx="5" fill="url(#acc)" opacity="0.7"/>
+  <rect x="595" y="188" width="110" height="8" rx="4" fill="#60a0e0" opacity="0.4"/>
+  <rect x="595" y="210" width="130" height="8" rx="4" fill="#60a0e0" opacity="0.35"/>
+  <rect x="595" y="232" width="95" height="8" rx="4" fill="#60a0e0" opacity="0.3"/>
+  <rect x="595" y="268" width="140" height="10" rx="5" fill="#60a0e0" opacity="0.5"/>
+  <rect x="595" y="290" width="115" height="8" rx="4" fill="#60a0e0" opacity="0.3"/>
+  <rect x="595" y="312" width="105" height="8" rx="4" fill="#60a0e0" opacity="0.25"/>
+  <text x="70" y="195" fill="#b0d0f0" font-family="Space Grotesk, Arial" font-size="46" font-weight="800">TEMPLATE</text>
+  <text x="70" y="265" fill="url(#acc)" font-family="Space Grotesk, Arial" font-size="64" font-weight="800">BASIC</text>
+  <rect x="70" y="286" width="130" height="4" rx="2" fill="url(#acc)" opacity="0.6"/>
+  <text x="70" y="328" fill="#6090b8" font-family="IBM Plex Mono, monospace" font-size="19" letter-spacing="3">CORE LAYOUT</text>
+  <text x="70" y="363" fill="#3a5878" font-family="IBM Plex Mono, monospace" font-size="14" letter-spacing="2">DISCORD TEMPLATE</text>
+</svg>

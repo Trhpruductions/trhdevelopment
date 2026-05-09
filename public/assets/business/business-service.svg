@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#060e22"/><stop offset="100%" stop-color="#0e1e44"/></linearGradient>
+    <linearGradient id="acc" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#4080ff"/><stop offset="100%" stop-color="#80aaff"/></linearGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="7" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="800" height="480" fill="url(#bg)"/>
+  <circle cx="660" cy="80" r="155" fill="#4080ff" opacity="0.07"/>
+  <!-- Briefcase icon -->
+  <rect x="570" y="195" width="180" height="130" rx="12" fill="#0a1a38" stroke="#4080ff" stroke-width="2" filter="url(#glow)"/>
+  <path d="M615,195 L615,175 C615,165 625,158 635,158 L725,158 C735,158 745,165 745,175 L745,195" fill="none" stroke="#4080ff" stroke-width="2"/>
+  <rect x="570" y="245" width="180" height="8" rx="4" fill="#4080ff" opacity="0.3"/>
+  <rect x="645" y="239" width="30" height="20" rx="5" fill="#0a1a38" stroke="#4080ff" stroke-width="1.5"/>
+  <text x="70" y="195" fill="#b0c8f0" font-family="Space Grotesk, Arial" font-size="46" font-weight="800">BUSINESS</text>
+  <text x="70" y="265" fill="url(#acc)" font-family="Space Grotesk, Arial" font-size="64" font-weight="800">SERVICE</text>
+  <rect x="70" y="286" width="195" height="4" rx="2" fill="url(#acc)" opacity="0.6"/>
+  <text x="70" y="328" fill="#5070c0" font-family="IBM Plex Mono, monospace" font-size="19" letter-spacing="3">MANAGED WORK</text>
+  <text x="70" y="363" fill="#2a4080" font-family="IBM Plex Mono, monospace" font-size="14" letter-spacing="2">TRH DEVELOPMENT</text>
+</svg>

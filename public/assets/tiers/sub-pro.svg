@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#100820"/><stop offset="100%" stop-color="#1e1040"/></linearGradient>
+    <linearGradient id="acc" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#a855f7"/><stop offset="100%" stop-color="#e040fb"/></linearGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="8" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="800" height="480" fill="url(#bg)"/>
+  <circle cx="660" cy="80" r="170" fill="#a855f7" opacity="0.08"/>
+  <!-- Lightning bolt -->
+  <polygon points="670,130 635,220 658,220 630,320 695,210 668,210 705,130" fill="url(#acc)" filter="url(#glow)"/>
+  <text x="70" y="200" fill="#d8b8ff" font-family="Space Grotesk, Arial" font-size="46" font-weight="800">SUBSCRIPTION</text>
+  <text x="70" y="272" fill="url(#acc)" font-family="Space Grotesk, Arial" font-size="72" font-weight="800">PRO</text>
+  <rect x="70" y="294" width="110" height="4" rx="2" fill="url(#acc)" opacity="0.6"/>
+  <text x="70" y="336" fill="#c080f0" font-family="IBM Plex Mono, monospace" font-size="19" letter-spacing="3">POWER FEATURES</text>
+  <text x="70" y="371" fill="#7040a0" font-family="IBM Plex Mono, monospace" font-size="14" letter-spacing="2">SUBSCRIBER PLAN</text>
+</svg>

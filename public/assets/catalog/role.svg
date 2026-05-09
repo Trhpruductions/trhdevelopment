@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#1a1400"/><stop offset="100%" stop-color="#2c2000"/></linearGradient>
+    <linearGradient id="acc" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#ffd700"/><stop offset="100%" stop-color="#ffe880"/></linearGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="7" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="800" height="480" fill="url(#bg)"/>
+  <circle cx="660" cy="80" r="155" fill="#ffd700" opacity="0.07"/>
+  <path d="M660,130 L730,162 L730,240 C730,285 660,315 660,315 C660,315 590,285 590,240 L590,162 Z" fill="#281c00" stroke="#ffd700" stroke-width="2.5" filter="url(#glow)"/>
+  <path d="M660,152 L716,180 L716,240 C716,276 660,302 660,302 C660,302 604,276 604,240 L604,180 Z" fill="none" stroke="#ffe880" stroke-width="1" opacity="0.35"/>
+  <text x="635" y="236" fill="url(#acc)" font-family="Space Grotesk, Arial" font-size="38" font-weight="800">?</text>
+  <text x="70" y="195" fill="#ffe8a0" font-family="Space Grotesk, Arial" font-size="46" font-weight="800">ROLE</text>
+  <text x="70" y="265" fill="url(#acc)" font-family="Space Grotesk, Arial" font-size="64" font-weight="800">AUTOMATION</text>
+  <rect x="70" y="286" width="330" height="4" rx="2" fill="url(#acc)" opacity="0.7"/>
+  <text x="70" y="328" fill="#b89020" font-family="IBM Plex Mono, monospace" font-size="19" letter-spacing="3">PERMISSION SUITE</text>
+  <text x="70" y="363" fill="#786010" font-family="IBM Plex Mono, monospace" font-size="14" letter-spacing="2">TRH CATALOG</text>
+</svg>

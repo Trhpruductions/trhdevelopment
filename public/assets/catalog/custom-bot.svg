@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#041808"/><stop offset="100%" stop-color="#082816"/></linearGradient>
+    <linearGradient id="acc" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#00cc88"/><stop offset="100%" stop-color="#66ffcc"/></linearGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="7" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="800" height="480" fill="url(#bg)"/>
+  <circle cx="660" cy="80" r="155" fill="#00cc88" opacity="0.07"/>
+  <rect x="595" y="148" width="130" height="110" rx="16" fill="#082818" stroke="#00cc88" stroke-width="2" filter="url(#glow)"/>
+  <rect x="615" y="132" width="90" height="22" rx="10" fill="#082818" stroke="#00cc88" stroke-width="1.5"/>
+  <circle cx="635" cy="195" r="16" fill="#041a10" stroke="#00cc88" stroke-width="1.5"/>
+  <circle cx="685" cy="195" r="16" fill="#041a10" stroke="#00cc88" stroke-width="1.5"/>
+  <circle cx="635" cy="195" r="8" fill="url(#acc)" opacity="0.9" filter="url(#glow)"/>
+  <circle cx="685" cy="195" r="8" fill="url(#acc)" opacity="0.9" filter="url(#glow)"/>
+  <rect x="622" y="220" width="76" height="14" rx="7" fill="#00cc88" opacity="0.5"/>
+  <rect x="583" y="258" width="24" height="44" rx="10" fill="#082818" stroke="#00cc88" stroke-width="1.5"/>
+  <rect x="713" y="258" width="24" height="44" rx="10" fill="#082818" stroke="#00cc88" stroke-width="1.5"/>
+  <rect x="615" y="258" width="90" height="54" rx="12" fill="#082818" stroke="#00cc88" stroke-width="1.5" filter="url(#glow)"/>
+  <path d="M720,155 C730,144 746,142 752,153 L741,164 L735,158 Z" fill="url(#acc)" opacity="0.8"/>
+  <text x="70" y="185" fill="#a0ffd8" font-family="Space Grotesk, Arial" font-size="46" font-weight="800">CUSTOM BOT</text>
+  <text x="70" y="258" fill="url(#acc)" font-family="Space Grotesk, Arial" font-size="64" font-weight="800">BLUEPRINT</text>
+  <rect x="70" y="279" width="290" height="4" rx="2" fill="url(#acc)" opacity="0.6"/>
+  <text x="70" y="321" fill="#30b878" font-family="IBM Plex Mono, monospace" font-size="19" letter-spacing="3">BUILT TO ORDER</text>
+  <text x="70" y="356" fill="#156840" font-family="IBM Plex Mono, monospace" font-size="14" letter-spacing="2">TRH CATALOG</text>
+</svg>
