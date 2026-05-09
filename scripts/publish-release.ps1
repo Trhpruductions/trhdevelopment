@@ -1,4 +1,3 @@
-[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingWriteHost', '', Justification='Status output is emitted without Write-Host; analyzer reports false positives in this workspace.')]
 param(
   [Parameter(Mandatory = $true)]
   [string]$Version,
@@ -8,6 +7,13 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
+
+# In PowerShell 7+, native command stderr can be promoted to Error records and
+# terminate script execution when ErrorActionPreference is Stop. Disable this
+# behavior so non-fatal tool warnings do not fail release automation.
+if (Get-Variable -Name PSNativeCommandUseErrorActionPreference -ErrorAction SilentlyContinue) {
+  $PSNativeCommandUseErrorActionPreference = $false
+}
 
 function Resolve-GhExecutable {
   $globalGh = Get-Command gh -ErrorAction SilentlyContinue
@@ -84,7 +90,7 @@ if (-not $tagCommit) {
 
 $headCommit = git rev-parse HEAD
 if ($headCommit -ne $tagCommit) {
-  "[publish] WARNING: HEAD ($headCommit) does not match $tag ($tagCommit)."
+  Write-Output "[publish] WARNING: HEAD ($headCommit) does not match $tag ($tagCommit)."
 }
 
 $repoArg = @()
@@ -100,13 +106,13 @@ if ($Prerelease) {
   $flags += "--prerelease"
 }
 
-"[publish] Pushing tag $tag..."
+Write-Output "[publish] Pushing tag $tag..."
 git push origin $tag
 if ($LASTEXITCODE -ne 0) {
   throw "Failed pushing tag $tag to origin."
 }
 
-"[publish] Creating GitHub release $tag..."
+Write-Output "[publish] Creating GitHub release $tag..."
 $cmd = @(
   "release", "create", $tag,
   $exeFile,
@@ -121,4 +127,4 @@ if ($LASTEXITCODE -ne 0) {
   throw "gh release create failed."
 }
 
-"[publish] Release $tag published successfully."
+Write-Output "[publish] Release $tag published successfully."

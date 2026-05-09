@@ -1,4 +1,3 @@
-[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingWriteHost', '', Justification='Status output is emitted without Write-Host; analyzer reports false positives in this workspace.')]
 param(
   [Parameter(Mandatory = $true)]
   [string]$Version,
@@ -6,6 +5,13 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
+
+# In PowerShell 7+, native command stderr can be promoted to Error records and
+# terminate script execution when ErrorActionPreference is Stop. Disable this
+# behavior so non-fatal tool warnings do not fail release automation.
+if (Get-Variable -Name PSNativeCommandUseErrorActionPreference -ErrorAction SilentlyContinue) {
+  $PSNativeCommandUseErrorActionPreference = $false
+}
 
 if ($Version -notmatch "^[0-9]+\.[0-9]+\.[0-9]+([-.][0-9A-Za-z]+)*$") {
   throw "Version must look like 1.0.2 or 1.0.2-beta.1"
@@ -22,22 +28,22 @@ try {
   $setupPath = Join-Path $outputDir $setupName
   $blockmapPath = Join-Path $outputDir $blockmapName
 
-  "[release] Running project verification..."
+  Write-Output "[release] Running project verification..."
   npm run verify
   if ($LASTEXITCODE -ne 0) {
     throw "Verification failed."
   }
 
-  "[release] Generating icons..."
+  Write-Output "[release] Generating icons..."
   npm run icons
   if ($LASTEXITCODE -ne 0) {
     throw "Icon generation failed."
   }
 
-  "[release] Clearing previous output: $outputDir"
+  Write-Output "[release] Clearing previous output: $outputDir"
   Remove-Item -Recurse -Force $outputDir -ErrorAction SilentlyContinue
 
-  "[release] Building installer $Version..."
+  Write-Output "[release] Building installer $Version..."
   node .\node_modules\electron-builder\cli.js --win --x64 --config.directories.output=$outputDir --config.extraMetadata.version=$Version
   if ($LASTEXITCODE -ne 0) {
     throw "electron-builder failed."
@@ -96,12 +102,12 @@ try {
   $releaseFile = Join-Path $outputDir "GITHUB_RELEASE_v$Version.md"
   $releaseMd | Set-Content $releaseFile
 
-  "[release] Completed successfully."
-  "[release] Output directory: $outputDir"
-  "[release] Installer: $setupPath"
-  "[release] Blockmap: $blockmapPath"
-  "[release] SHA256SUMS: $(Join-Path $outputDir 'SHA256SUMS.txt')"
-  "[release] Release notes: $releaseFile"
+  Write-Output "[release] Completed successfully."
+  Write-Output "[release] Output directory: $outputDir"
+  Write-Output "[release] Installer: $setupPath"
+  Write-Output "[release] Blockmap: $blockmapPath"
+  Write-Output "[release] SHA256SUMS: $(Join-Path $outputDir 'SHA256SUMS.txt')"
+  Write-Output "[release] Release notes: $releaseFile"
 }
 finally {
   Pop-Location
