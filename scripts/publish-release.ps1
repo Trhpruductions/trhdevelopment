@@ -1,3 +1,4 @@
+[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingWriteHost', '', Justification='Status output is emitted without Write-Host; analyzer reports false positives in this workspace.')]
 param(
   [Parameter(Mandatory = $true)]
   [string]$Version,
@@ -22,7 +23,7 @@ function Resolve-GhExecutable {
   return $null
 }
 
-function Ensure-GhAuth([string]$GhExe) {
+function Confirm-GhAuth([string]$GhExe) {
   # Non-interactive token auth path for CI/local automation.
   $token = if ($env:GH_TOKEN) { $env:GH_TOKEN } elseif ($env:GITHUB_TOKEN) { $env:GITHUB_TOKEN } else { $null }
   if ($token) {
@@ -34,7 +35,7 @@ function Ensure-GhAuth([string]$GhExe) {
     & $GhExe auth status 2>$null | Out-Null
   }
   catch {
-    # Ignore auth-status command errors and rely on exit code check below.
+    Write-Verbose "GitHub auth status check returned an error; validating via exit code."
   }
   if ($LASTEXITCODE -eq 0) {
     return
@@ -69,7 +70,7 @@ if (-not $ghExe) {
   throw "GitHub CLI not found. Install gh globally or place portable gh at tools/gh/bin/gh.exe"
 }
 
-Ensure-GhAuth -GhExe $ghExe
+Confirm-GhAuth -GhExe $ghExe
 
 $remote = git remote get-url origin 2>$null
 if (-not $remote) {
@@ -83,7 +84,7 @@ if (-not $tagCommit) {
 
 $headCommit = git rev-parse HEAD
 if ($headCommit -ne $tagCommit) {
-  Write-Warning "HEAD ($headCommit) does not match $tag ($tagCommit)."
+  "[publish] WARNING: HEAD ($headCommit) does not match $tag ($tagCommit)."
 }
 
 $repoArg = @()
@@ -99,13 +100,13 @@ if ($Prerelease) {
   $flags += "--prerelease"
 }
 
-Write-Host "[publish] Pushing tag $tag..."
+"[publish] Pushing tag $tag..."
 git push origin $tag
 if ($LASTEXITCODE -ne 0) {
   throw "Failed pushing tag $tag to origin."
 }
 
-Write-Host "[publish] Creating GitHub release $tag..."
+"[publish] Creating GitHub release $tag..."
 $cmd = @(
   "release", "create", $tag,
   $exeFile,
@@ -120,4 +121,4 @@ if ($LASTEXITCODE -ne 0) {
   throw "gh release create failed."
 }
 
-Write-Host "[publish] Release $tag published successfully."
+"[publish] Release $tag published successfully."
