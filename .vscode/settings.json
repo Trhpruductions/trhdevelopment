@@ -1,3 +1,7 @@
 {
-  "powershell.scriptAnalysis.settingsPath": "PSScriptAnalyzerSettings.psd1"
+  "powershell.scriptAnalysis.enable": true,
+  "powershell.scriptAnalysis.settingsPath": "./PSScriptAnalyzerSettings.psd1",
+  "powershell.scriptAnalysis.diagnosticSeverityOverrides": {
+    "PSAvoidUsingWriteHost": "None"
+  }
 }
