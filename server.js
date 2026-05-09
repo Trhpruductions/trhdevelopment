@@ -1,6 +1,7 @@
 const path = require("path");
 require("dotenv").config({ path: path.join(__dirname, ".env") });
 const http = require("http");
+const net = require("net");
 const crypto = require("crypto");
 const fs = require("fs");
 const os = require("os");
@@ -5405,12 +5406,89 @@ loadBlacklist();
 syncClientAccountsFromOrders();
 applyPaymentStateTransitions();
 
+function probeExistingPanelInstance(port, callback) {
+  const req = http.request(
+    {
+      method: "GET",
+      host: "127.0.0.1",
+      port,
+      path: "/api/health",
+      timeout: 1500
+    },
+    (res) => {
+      let raw = "";
+      res.setEncoding("utf8");
+      res.on("data", (chunk) => {
+        raw += chunk;
+      });
+      res.on("end", () => {
+        try {
+          const parsed = JSON.parse(raw || "{}");
+          callback(Boolean(parsed && parsed.ok === true));
+        } catch {
+          callback(false);
+        }
+      });
+    }
+  );
+
+  req.on("timeout", () => {
+    req.destroy();
+    callback(false);
+  });
+  req.on("error", () => callback(false));
+  req.end();
+}
+
+function probePortOccupied(port, callback) {
+  const socket = net.createConnection({ host: "127.0.0.1", port, timeout: 1200 });
+  let settled = false;
+
+  const finish = (value) => {
+    if (settled) return;
+    settled = true;
+    callback(value);
+  };
+
+  socket.on("connect", () => {
+    socket.destroy();
+    finish(true);
+  });
+
+  socket.on("timeout", () => {
+    socket.destroy();
+    finish(false);
+  });
+
+  socket.on("error", (err) => {
+    if (err && (err.code === "ECONNREFUSED" || err.code === "EHOSTUNREACH")) {
+      finish(false);
+      return;
+    }
+    finish(true);
+  });
+}
+
 // When run directly (`node server.js`) start listening immediately.
 // When required by Electron, export the server so main.js can bind it to
 // a specific address and port before opening the BrowserWindow.
 if (require.main === module) {
-  server.listen(PORT, () => {
-    console.log(`TRH Control Panel running on http://localhost:${PORT}`);
+  probePortOccupied(PORT, (occupied) => {
+    if (occupied) {
+      probeExistingPanelInstance(PORT, (isPanelAlive) => {
+        if (isPanelAlive) {
+          console.log(`TRH Control Panel is already running on http://localhost:${PORT}`);
+          process.exit(0);
+        }
+        console.error(`[FATAL] Port ${PORT} is in use by another process.`);
+        process.exit(1);
+      });
+      return;
+    }
+
+    server.listen(PORT, () => {
+      console.log(`TRH Control Panel running on http://localhost:${PORT}`);
+    });
   });
 } else {
   module.exports = { app, server, PORT };
